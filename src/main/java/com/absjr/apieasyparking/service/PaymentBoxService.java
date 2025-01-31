@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service;
 public class PaymentBoxService {
 
     @Autowired
-    private PaymentBoxRepository paymentBoxRepository
+    private PaymentBoxRepository paymentBoxRepository;
 }
