@@ -14,7 +14,7 @@ public class PaymentBox {
 
     private String operatorName;
 
-    @OneToMany(mappedBy = "payment")
+    @OneToMany(mappedBy = "paymentBox")
     private List<Ticket> tickets;
 
     public PaymentBox() {

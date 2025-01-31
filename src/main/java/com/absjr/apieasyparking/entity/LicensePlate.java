@@ -3,6 +3,7 @@ package com.absjr.apieasyparking.entity;
 import com.absjr.apieasyparking.entity.enums.VehicleType;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,8 +16,8 @@ public class LicensePlate {
     @Enumerated(EnumType.STRING)
     private VehicleType vehicleType;
 
-    @OneToMany(mappedBy = "plate")
-    private List<Ticket> tickets;
+    @OneToMany(mappedBy = "licensePlate")
+    private List<Ticket> tickets = new ArrayList<>();
 
     public LicensePlate() {
     }
