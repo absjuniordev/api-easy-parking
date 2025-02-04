@@ -1,11 +1,13 @@
 package com.absjr.apieasyparking.entity;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Objects;
 
 @Entity
+@Table(name = "tb_ticket")
 public class Ticket {
 
     @Id
@@ -13,25 +15,28 @@ public class Ticket {
     private Long id;
 
     private String ticketCode;
-    private LocalDateTime entryTime;
-    private LocalDateTime departureTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant entryTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant departureTime;
     private Double amountPaid;
 
     @ManyToOne
-    @JoinColumn(name = "plate_id")
+    @JoinColumn(name = "license_plate_id")
     private LicensePlate licensePlate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "payment_box_id")
     private PaymentBox paymentBox;
+
 
     public Ticket() {
     }
 
-    public Ticket(String ticketCode, LocalDateTime departureTime, LocalDateTime entryTime, Double amountPaid, LicensePlate licensePlate, PaymentBox paymentBox) {
+    public Ticket(String ticketCode, Instant entryTime, Instant departureTime, Double amountPaid, LicensePlate licensePlate, PaymentBox paymentBox) {
         this.ticketCode = ticketCode;
-        this.departureTime = departureTime;
         this.entryTime = entryTime;
+        this.departureTime = departureTime;
         this.amountPaid = amountPaid;
         this.licensePlate = licensePlate;
         this.paymentBox = paymentBox;
@@ -45,28 +50,20 @@ public class Ticket {
         this.ticketCode = ticketCode;
     }
 
-    public LocalDateTime getEntryTime() {
+    public Instant getEntryTime() {
         return entryTime;
     }
 
-    public void setEntryTime(LocalDateTime entryTime) {
+    public void setEntryTime(Instant entryTime) {
         this.entryTime = entryTime;
     }
 
-    public LocalDateTime getDepartureTime() {
+    public Instant getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
+    public void setDepartureTime(Instant departureTime) {
         this.departureTime = departureTime;
-    }
-
-    public PaymentBox getPaymentBox() {
-        return paymentBox;
-    }
-
-    public void setPaymentBox(PaymentBox paymentBox) {
-        this.paymentBox = paymentBox;
     }
 
     public Double getAmountPaid() {
@@ -83,6 +80,14 @@ public class Ticket {
 
     public void setLicensePlate(LicensePlate licensePlate) {
         this.licensePlate = licensePlate;
+    }
+
+    public PaymentBox getPaymentBox() {
+        return paymentBox;
+    }
+
+    public void setPaymentBox(PaymentBox paymentBox) {
+        this.paymentBox = paymentBox;
     }
 
     @Override

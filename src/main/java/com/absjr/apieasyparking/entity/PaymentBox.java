@@ -2,10 +2,12 @@ package com.absjr.apieasyparking.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "tb_payment_box")
 public class PaymentBox {
 
     @Id
@@ -14,8 +16,8 @@ public class PaymentBox {
 
     private String operatorName;
 
-    @OneToMany(mappedBy = "paymentBox")
-    private List<Ticket> tickets;
+    @OneToMany(mappedBy = "paymentBox", cascade = CascadeType.ALL)
+    private List<Ticket> tickets = new ArrayList<>();;
 
     public PaymentBox() {
     }

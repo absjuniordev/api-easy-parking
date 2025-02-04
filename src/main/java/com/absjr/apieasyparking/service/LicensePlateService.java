@@ -10,5 +10,4 @@ public class LicensePlateService {
     @Autowired
     private LicensePlateRepository licensePlateRepository;
 
-
 }

@@ -1,6 +1,8 @@
 package com.absjr.apieasyparking.entity;
 
 import com.absjr.apieasyparking.entity.enums.VehicleType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "tb_license_table")
 public class LicensePlate {
 
     @Id
@@ -16,8 +19,10 @@ public class LicensePlate {
     @Enumerated(EnumType.STRING)
     private VehicleType vehicleType;
 
-    @OneToMany(mappedBy = "licensePlate")
+
+    @OneToMany(mappedBy = "licensePlate", fetch = FetchType.EAGER)
     private List<Ticket> tickets = new ArrayList<>();
+
 
     public LicensePlate() {
     }

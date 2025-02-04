@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LicensePlateRepository extends JpaRepository<LicensePlate, String> {
+    LicensePlate findByPlate(String plate);
 }
