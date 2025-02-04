@@ -19,8 +19,8 @@ public class LicensePlate {
     @Enumerated(EnumType.STRING)
     private VehicleType vehicleType;
 
-
     @OneToMany(mappedBy = "licensePlate", fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Ticket> tickets = new ArrayList<>();
 
 

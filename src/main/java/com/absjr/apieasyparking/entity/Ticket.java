@@ -1,13 +1,15 @@
 package com.absjr.apieasyparking.entity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_ticket")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Ticket {
 
     @Id
@@ -23,6 +25,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "license_plate_id")
+
     private LicensePlate licensePlate;
 
     @ManyToOne(cascade = CascadeType.MERGE)
