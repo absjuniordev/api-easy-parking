@@ -2,6 +2,7 @@ package com.absjr.apieasyparking.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import java.time.Instant;
@@ -25,7 +26,6 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "license_plate_id")
-
     private LicensePlate licensePlate;
 
     @ManyToOne(cascade = CascadeType.MERGE)
