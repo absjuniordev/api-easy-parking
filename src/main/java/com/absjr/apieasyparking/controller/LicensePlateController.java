@@ -7,13 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/license-plate")
+@RequestMapping("/api/plate")
 public
 class LicensePlateController {
 
     @Autowired
     private
     LicensePlateService licensePlateService;
+
+    //create palet
 
     @GetMapping("/{plate}")
     public
