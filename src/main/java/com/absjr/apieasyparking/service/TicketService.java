@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -46,6 +47,14 @@ class TicketService {
         existingPlate.getTickets().add(ticket);
 
         return ticket;
+    }
+
+    public Ticket findByTicket(String ticket){
+              return ticketRepository.findByTicketCode(ticket);
+    }
+
+    public List<Ticket> getAllTicket(){
+        return ticketRepository.findAll();
     }
 
     private

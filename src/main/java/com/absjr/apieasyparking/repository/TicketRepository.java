@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
  //  Ticket findByPlateAndDepartureTimeIsNull(LicensePlate plate);
+    Ticket findByTicketCode(String ticket);
 }

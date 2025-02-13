@@ -2,9 +2,7 @@ package com.absjr.apieasyparking.entity;
 
 import com.absjr.apieasyparking.entity.enums.VehicleType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +19,6 @@ public class LicensePlate {
 
     @JsonIgnore
     @OneToMany(mappedBy = "licensePlate", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
     private List<Ticket> tickets = new ArrayList<>();
 
 

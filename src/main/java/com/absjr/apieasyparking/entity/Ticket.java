@@ -1,16 +1,12 @@
 package com.absjr.apieasyparking.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_ticket")
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Ticket {
 
     @Id

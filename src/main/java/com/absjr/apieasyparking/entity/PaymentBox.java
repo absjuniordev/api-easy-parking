@@ -1,7 +1,7 @@
 package com.absjr.apieasyparking.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +16,7 @@ public class PaymentBox {
 
     private String operatorName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "paymentBox", cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();;
 

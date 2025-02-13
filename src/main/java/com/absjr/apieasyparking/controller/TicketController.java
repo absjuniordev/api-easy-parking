@@ -8,12 +8,10 @@ import com.absjr.apieasyparking.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/tickets")
@@ -28,6 +26,18 @@ class TicketController {
        Ticket ticket = ticketService.createTicket(createTKT.getPlate(), createTKT.getVehicleType(), createTKT.getOperatorName());
        return ResponseEntity.status(HttpStatus.CREATED).body(ticket);
    }
+
+   @GetMapping("{ticket}")
+    public ResponseEntity<Ticket> findByTicket(@PathVariable String ticket){
+       Ticket tkt =   ticketService.findByTicket(ticket);
+     return  ResponseEntity.status(HttpStatus.OK).body(tkt);
+   }
+
+    @GetMapping
+    public ResponseEntity<List<Ticket>> gelAllTicket(){
+        List<Ticket> ticket = ticketService.getAllTicket();
+        return  ResponseEntity.status(HttpStatus.OK).body(ticket);
+    }
 
 
 }
