@@ -1,5 +1,6 @@
 package com.absjr.apieasyparking.entity.DTO;
 
+import com.absjr.apieasyparking.entity.LicensePlate;
 import com.absjr.apieasyparking.entity.Ticket;
 
 import java.time.Instant;
@@ -11,8 +12,19 @@ public class TicketDTO {
     private Instant departureTime;
     private Double amountPaid;
     private String operatorName;
+    private LicensePlate licensePlate;
 
     public TicketDTO() {
+    }
+
+    public
+    LicensePlate getLicensePlate() {
+        return licensePlate;
+    }
+
+    public
+    void setLicensePlate(LicensePlate licensePlate) {
+        this.licensePlate = licensePlate;
     }
 
     public TicketDTO(Ticket ticket) {
@@ -20,6 +32,7 @@ public class TicketDTO {
         this.entryTime = ticket.getEntryTime();
         this.departureTime = ticket.getDepartureTime();
         this.amountPaid = ticket.getAmountPaid();
+        this.licensePlate = ticket.getLicensePlate();
         this.operatorName = ticket.getPaymentBox() != null ? ticket.getPaymentBox().getOperatorName() : null;
     }
 

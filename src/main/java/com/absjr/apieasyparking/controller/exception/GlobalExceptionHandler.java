@@ -1,6 +1,7 @@
 package com.absjr.apieasyparking.controller.exception;
 
 import com.absjr.apieasyparking.exeption.LicensePlateNotFoundException;
+import com.absjr.apieasyparking.exeption.TicketNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,13 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(LicensePlateNotFoundException.class)
     public ResponseEntity<String> handleLicensePlateNotFoundException(LicensePlateNotFoundException exception) {
+        String message = exception.getMessage();
+        logger.error("Error: ", exception);
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TicketNotFoundException.class)
+    public ResponseEntity<String> handleTicketNotFoundException(TicketNotFoundException exception) {
         String message = exception.getMessage();
         logger.error("Error: ", exception);
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);

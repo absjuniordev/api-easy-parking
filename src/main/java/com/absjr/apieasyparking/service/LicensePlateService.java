@@ -8,8 +8,11 @@ import com.absjr.apieasyparking.repository.LicensePlateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class LicensePlateService {
+public
+class LicensePlateService {
 
     @Autowired
     private LicensePlateRepository licensePlateRepository;
@@ -26,7 +29,7 @@ public class LicensePlateService {
     }
 
     public
-    LicensePlateDTO getPlate(String plate) {
+    LicensePlateDTO findByPlate(String plate) {
         LicensePlate licensePlate = licensePlateRepository.findByPlate(plate);
         if (licensePlate == null) {
             throw new LicensePlateNotFoundException("The Plate " + plate + " is null");
@@ -34,11 +37,19 @@ public class LicensePlateService {
         return new LicensePlateDTO(licensePlate);
     }
 
-    public void delete(String plate) {
+    public
+    void delete(String plate) {
         if (!licensePlateRepository.existsById(plate)) {
             throw new LicensePlateNotFoundException("This Plate [" + plate + "] does not exist");
         }
         licensePlateRepository.deleteById(plate);
+    }
+
+    public
+    List<LicensePlate> getAllPlate() {
+        List<LicensePlate> resultSearch = licensePlateRepository.findAll();
+        if (resultSearch.isEmpty()) throw new LicensePlateNotFoundException("The list is empty");
+        return resultSearch;
     }
 }
 
