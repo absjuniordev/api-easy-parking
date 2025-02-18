@@ -7,6 +7,7 @@ import com.absjr.apieasyparking.exeption.LicensePlateNotFoundException;
 import com.absjr.apieasyparking.repository.LicensePlateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ class LicensePlateService {
     @Autowired
     private LicensePlateRepository licensePlateRepository;
 
+    @Transactional(readOnly = true)
     public
     LicensePlate getOrCreateLicensePlate(String plate, String vehicleType) {
         LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
@@ -28,6 +30,7 @@ class LicensePlateService {
         return existingPlate;
     }
 
+    @Transactional(readOnly = true)
     public
     LicensePlateDTO findByPlate(String plate) {
         LicensePlate licensePlate = licensePlateRepository.findByPlate(plate);
@@ -37,6 +40,7 @@ class LicensePlateService {
         return new LicensePlateDTO(licensePlate);
     }
 
+    @Transactional(readOnly = true)
     public
     void delete(String plate) {
         if (!licensePlateRepository.existsById(plate)) {
@@ -45,6 +49,7 @@ class LicensePlateService {
         licensePlateRepository.deleteById(plate);
     }
 
+    @Transactional(readOnly = true)
     public
     List<LicensePlate> getAllPlate() {
         List<LicensePlate> resultSearch = licensePlateRepository.findAll();

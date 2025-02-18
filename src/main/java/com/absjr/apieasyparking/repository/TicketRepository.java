@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
  //  Ticket findByPlateAndDepartureTimeIsNull(LicensePlate plate);
-    TicketDTO findByTicketCode(String ticket);
+ Ticket findByTicketCode(String ticket);
 }

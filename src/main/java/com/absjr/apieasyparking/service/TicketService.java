@@ -51,13 +51,15 @@ class TicketService {
         return ticket;
     }
 
+    @Transactional(readOnly = true)
     public
     TicketDTO findByTicket(String ticket) {
-        TicketDTO existingTicket = ticketRepository.findByTicketCode(ticket);
+        Ticket existingTicket = ticketRepository.findByTicketCode(ticket);
         if (existingTicket == null) throw new TicketNotFoundException("The Ticket " + ticket + " does not exist");
-        return existingTicket;
+        return new TicketDTO(existingTicket) ;
     }
 
+    @Transactional(readOnly = true)
     public
     List<String> getAllTicket() {
         List<String> resultSearch = ticketRepository.findAll()

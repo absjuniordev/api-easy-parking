@@ -18,8 +18,6 @@ class LicensePlateController {
     private
     LicensePlateService licensePlateService;
 
-    //create palet
-
     @GetMapping("/{plate}")
     public
     ResponseEntity<LicensePlateDTO> findByPlate(@PathVariable String plate) {
@@ -27,7 +25,7 @@ class LicensePlateController {
         return ResponseEntity.ok().body(licensePlateDTO);
     }
 
-    @DeleteMapping("{plate}")
+    @DeleteMapping("/{plate}")
     public
     ResponseEntity<String> deletePlate(@PathVariable String plate) {
         licensePlateService.delete(plate);

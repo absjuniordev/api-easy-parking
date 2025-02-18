@@ -26,7 +26,7 @@ class TicketController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ticket);
     }
 
-    @GetMapping("{ticket}")
+    @GetMapping("/{ticket}")
     public
     ResponseEntity<TicketDTO> findByTicket(@PathVariable String ticket) {
         TicketDTO findTicket = ticketService.findByTicket(ticket);
