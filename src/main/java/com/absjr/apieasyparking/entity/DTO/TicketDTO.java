@@ -3,6 +3,7 @@ package com.absjr.apieasyparking.entity.DTO;
 import com.absjr.apieasyparking.entity.LicensePlate;
 import com.absjr.apieasyparking.entity.Ticket;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 public class TicketDTO {
@@ -10,7 +11,7 @@ public class TicketDTO {
     private String ticketCode;
     private Instant entryTime;
     private Instant departureTime;
-    private Double amountPaid;
+    private BigDecimal amountPaid;
     private String operatorName;
     private LicensePlate licensePlate;
 
@@ -60,11 +61,11 @@ public class TicketDTO {
         this.departureTime = departureTime;
     }
 
-    public Double getAmountPaid() {
+    public BigDecimal getAmountPaid() {
         return amountPaid;
     }
 
-    public void setAmountPaid(Double amountPaid) {
+    public void setAmountPaid(BigDecimal amountPaid) {
         this.amountPaid = amountPaid;
     }
 

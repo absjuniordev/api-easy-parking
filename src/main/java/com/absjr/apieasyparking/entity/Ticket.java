@@ -2,6 +2,8 @@ package com.absjr.apieasyparking.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -14,11 +16,14 @@ public class Ticket {
     private Long id;
 
     private String ticketCode;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant entryTime;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant departureTime;
-    private Double amountPaid;
+
+    private BigDecimal amountPaid;
 
     @ManyToOne
     @JoinColumn(name = "license_plate_id")
@@ -32,7 +37,7 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String ticketCode, Instant entryTime, Instant departureTime, Double amountPaid, LicensePlate licensePlate, PaymentBox paymentBox) {
+    public Ticket(String ticketCode, Instant entryTime, Instant departureTime, BigDecimal amountPaid, LicensePlate licensePlate, PaymentBox paymentBox) {
         this.ticketCode = ticketCode;
         this.entryTime = entryTime;
         this.departureTime = departureTime;
@@ -65,11 +70,11 @@ public class Ticket {
         this.departureTime = departureTime;
     }
 
-    public Double getAmountPaid() {
+    public BigDecimal getAmountPaid() {
         return amountPaid;
     }
 
-    public void setAmountPaid(Double amountPaid) {
+    public void setAmountPaid(BigDecimal amountPaid) {
         this.amountPaid = amountPaid;
     }
 

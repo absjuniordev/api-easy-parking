@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Comparator;
@@ -35,7 +36,6 @@ class PaymentBoxService {
 
         if (existingPlate == null) throw new LicensePlateNotFoundException("Plate " + plate + " not found");
 
-
         Ticket latestTicket = existingPlate.getTickets().stream()
                 .max(Comparator.comparing(Ticket::getEntryTime))
                 .orElse(null);
@@ -45,20 +45,26 @@ class PaymentBoxService {
 
         Instant departureTime = Instant.now();
         Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
+        BigDecimal value = getFare(duration);
 
-        double value;
-        if (duration.toHours() <= 3) {
-            value = 5.00;
-        } else if (duration.toHours() <= 6) {
-            value = 7.00;
-        } else {
-            value = 10.00;
-        }
 
         latestTicket.setDepartureTime(departureTime);
         latestTicket.setAmountPaid(value);
-
         ticketRepository.save(latestTicket);
+    }
+
+
+
+    private static BigDecimal getFare(Duration duration) {
+        BigDecimal value;
+        if (duration.toHours() <= 3) {
+            value = new BigDecimal("5.00");
+        } else if (duration.toHours() <= 6) {
+            value = new BigDecimal("7.00");
+        } else {
+            value = new BigDecimal("10.00");
+        }
+        return value;
     }
 
 

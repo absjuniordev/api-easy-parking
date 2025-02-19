@@ -43,7 +43,7 @@ class TicketService {
 
         LicensePlate existingPlate = licensePlateService.getOrCreateLicensePlate(plate, vehicleType);
         String ticketCode = randomCode();
-        Ticket ticket = new Ticket(ticketCode, Instant.now(), null, 0.0, existingPlate, paymentBox);
+        Ticket ticket = new Ticket(ticketCode, Instant.now(), null, null, existingPlate, paymentBox);
 
         ticket = ticketRepository.save(ticket);
         existingPlate.getTickets().add(ticket);
