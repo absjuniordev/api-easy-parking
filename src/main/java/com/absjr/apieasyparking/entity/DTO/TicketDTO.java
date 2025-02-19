@@ -5,12 +5,13 @@ import com.absjr.apieasyparking.entity.Ticket;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class TicketDTO {
 
     private String ticketCode;
-    private Instant entryTime;
-    private Instant departureTime;
+    private LocalDateTime entryTime;
+    private LocalDateTime departureTime;
     private BigDecimal amountPaid;
     private String operatorName;
     private LicensePlate licensePlate;
@@ -45,19 +46,19 @@ public class TicketDTO {
         this.ticketCode = ticketCode;
     }
 
-    public Instant getEntryTime() {
+    public LocalDateTime getEntryTime() {
         return entryTime;
     }
 
-    public void setEntryTime(Instant entryTime) {
+    public void setEntryTime(LocalDateTime entryTime) {
         this.entryTime = entryTime;
     }
 
-    public Instant getDepartureTime() {
+    public LocalDateTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Instant departureTime) {
+    public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
     }
 

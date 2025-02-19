@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 
 
@@ -43,10 +44,9 @@ class PaymentBoxService {
         if (latestTicket == null) throw new TicketNotFoundException("Ticket not found");
         if (latestTicket.getDepartureTime() != null) throw new PaymentBoxException("Payment ok");
 
-        Instant departureTime = Instant.now();
+        LocalDateTime departureTime = LocalDateTime.now();
         Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
         BigDecimal value = getFare(duration);
-
 
         latestTicket.setDepartureTime(departureTime);
         latestTicket.setAmountPaid(value);

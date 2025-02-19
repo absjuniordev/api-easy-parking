@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -43,7 +44,7 @@ class TicketService {
 
         LicensePlate existingPlate = licensePlateService.getOrCreateLicensePlate(plate, vehicleType);
         String ticketCode = randomCode();
-        Ticket ticket = new Ticket(ticketCode, Instant.now(), null, null, existingPlate, paymentBox);
+        Ticket ticket = new Ticket(ticketCode, LocalDateTime.now(), null, null, existingPlate, paymentBox);
 
         ticket = ticketRepository.save(ticket);
         existingPlate.getTickets().add(ticket);

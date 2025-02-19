@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 @Entity
@@ -17,11 +18,11 @@ public class Ticket {
 
     private String ticketCode;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    private Instant entryTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime entryTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    private Instant departureTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime departureTime;
 
     private BigDecimal amountPaid;
 
@@ -37,7 +38,7 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String ticketCode, Instant entryTime, Instant departureTime, BigDecimal amountPaid, LicensePlate licensePlate, PaymentBox paymentBox) {
+    public Ticket(String ticketCode, LocalDateTime entryTime, LocalDateTime departureTime, BigDecimal amountPaid, LicensePlate licensePlate, PaymentBox paymentBox) {
         this.ticketCode = ticketCode;
         this.entryTime = entryTime;
         this.departureTime = departureTime;
@@ -54,19 +55,19 @@ public class Ticket {
         this.ticketCode = ticketCode;
     }
 
-    public Instant getEntryTime() {
+    public LocalDateTime getEntryTime() {
         return entryTime;
     }
 
-    public void setEntryTime(Instant entryTime) {
+    public void setEntryTime(LocalDateTime entryTime) {
         this.entryTime = entryTime;
     }
 
-    public Instant getDepartureTime() {
+    public LocalDateTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Instant departureTime) {
+    public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
     }
 
