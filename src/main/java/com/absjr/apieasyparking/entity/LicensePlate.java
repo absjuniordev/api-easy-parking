@@ -34,12 +34,24 @@ public class LicensePlate {
         return plate;
     }
 
+    public void setPlate(String plate) {
+        this.plate = plate;
+    }
+
     public VehicleType getVehicleType() {
         return vehicleType;
     }
 
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
     public List<Ticket> getTickets() {
         return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 public class TicketDTO {
 
+    private Long id;
     private String ticketCode;
     private LocalDateTime entryTime;
     private LocalDateTime departureTime;
@@ -16,7 +17,22 @@ public class TicketDTO {
     private String operatorName;
     private LicensePlate licensePlate;
 
-    public TicketDTO() {
+    public TicketDTO(Ticket entity) {
+        this.id = entity.getId();
+        this.ticketCode = entity.getTicketCode();
+        this.entryTime = entity.getEntryTime();
+        this.departureTime = entity.getDepartureTime();
+        this.amountPaid = entity.getAmountPaid();
+        this.licensePlate = entity.getLicensePlate();
+        this.operatorName = entity.getPaymentBox() != null ? entity.getPaymentBox().getOperatorName() : null;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public
@@ -29,14 +45,7 @@ public class TicketDTO {
         this.licensePlate = licensePlate;
     }
 
-    public TicketDTO(Ticket ticket) {
-        this.ticketCode = ticket.getTicketCode();
-        this.entryTime = ticket.getEntryTime();
-        this.departureTime = ticket.getDepartureTime();
-        this.amountPaid = ticket.getAmountPaid();
-        this.licensePlate = ticket.getLicensePlate();
-        this.operatorName = ticket.getPaymentBox() != null ? ticket.getPaymentBox().getOperatorName() : null;
-    }
+
 
     public String getTicketCode() {
         return ticketCode;

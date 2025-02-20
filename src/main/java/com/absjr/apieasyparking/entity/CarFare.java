@@ -9,6 +9,7 @@ import java.time.Duration;
 @Table(name = "tb_car_fare")
 public class CarFare {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +33,13 @@ public class CarFare {
         this.additionalStay = additionalStay;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public BigDecimal getValueFare() {
         return valueFare;

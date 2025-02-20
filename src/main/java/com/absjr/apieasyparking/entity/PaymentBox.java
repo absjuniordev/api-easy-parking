@@ -28,6 +28,14 @@ public class PaymentBox {
         this.tickets = tickets;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getOperatorName() {
         return operatorName;
     }

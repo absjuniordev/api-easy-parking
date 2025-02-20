@@ -7,19 +7,25 @@ import java.util.stream.Collectors;
 
 public class LicensePlateDTO {
 
-    private String plate;
+
+    private String plateId;
     private String vehicleType;
     private List<TicketDTO> tickets;
 
-    public LicensePlateDTO() {
+    public LicensePlateDTO(LicensePlate licensePlate) {
+        this.plateId = licensePlate.getPlate();
+        this.vehicleType = licensePlate.getVehicleType().name();
+        this.tickets = licensePlate.getTickets().stream()
+                .map(TicketDTO::new)
+                .collect(Collectors.toList());
     }
 
-    public String getPlate() {
-        return plate;
+    public String getPlateId() {
+        return plateId;
     }
 
-    public void setPlate(String plate) {
-        this.plate = plate;
+    public void setPlateId(String plateId) {
+        this.plateId = plateId;
     }
 
     public String getVehicleType() {
@@ -38,11 +44,5 @@ public class LicensePlateDTO {
         this.tickets = tickets;
     }
 
-    public LicensePlateDTO(LicensePlate licensePlate) {
-        this.plate = licensePlate.getPlate();
-        this.vehicleType = licensePlate.getVehicleType().name();
-        this.tickets = licensePlate.getTickets().stream()
-                .map(TicketDTO::new)
-                .collect(Collectors.toList());
-    }
+
 }
