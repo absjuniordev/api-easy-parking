@@ -21,9 +21,9 @@ class TicketController {
 
     @PostMapping
     public
-    ResponseEntity<Ticket> createTicket(@RequestBody AccessDTO createTKT) {
+    ResponseEntity<TicketDTO> createTicket(@RequestBody AccessDTO createTKT) {
         Ticket ticket = ticketService.createTicket(createTKT.getPlate(), createTKT.getVehicleType(), createTKT.getOperatorName());
-        return ResponseEntity.status(HttpStatus.CREATED).body(ticket);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new TicketDTO(ticket));
     }
 
     @GetMapping("/{ticket}")

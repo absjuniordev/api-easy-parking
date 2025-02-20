@@ -1,6 +1,7 @@
 package com.absjr.apieasyparking.entity.DTO;
 
 import com.absjr.apieasyparking.entity.LicensePlate;
+import com.absjr.apieasyparking.entity.PaymentBox;
 import com.absjr.apieasyparking.entity.Ticket;
 
 import java.math.BigDecimal;
@@ -14,7 +15,7 @@ public class TicketDTO {
     private LocalDateTime entryTime;
     private LocalDateTime departureTime;
     private BigDecimal amountPaid;
-    private String operatorName;
+    private PaymentBox operatorName;
     private LicensePlate licensePlate;
 
     public TicketDTO(Ticket entity) {
@@ -24,7 +25,7 @@ public class TicketDTO {
         this.departureTime = entity.getDepartureTime();
         this.amountPaid = entity.getAmountPaid();
         this.licensePlate = entity.getLicensePlate();
-        this.operatorName = entity.getPaymentBox() != null ? entity.getPaymentBox().getOperatorName() : null;
+        this.operatorName = entity.getPaymentBox() ;
     }
 
     public Long getId() {
@@ -34,18 +35,6 @@ public class TicketDTO {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public
-    LicensePlate getLicensePlate() {
-        return licensePlate;
-    }
-
-    public
-    void setLicensePlate(LicensePlate licensePlate) {
-        this.licensePlate = licensePlate;
-    }
-
-
 
     public String getTicketCode() {
         return ticketCode;
@@ -79,14 +68,19 @@ public class TicketDTO {
         this.amountPaid = amountPaid;
     }
 
-    public String getOperatorName() {
+    public PaymentBox getOperatorName() {
         return operatorName;
     }
 
-    public void setOperatorName(String operatorName) {
+    public void setOperatorName(PaymentBox operatorName) {
         this.operatorName = operatorName;
     }
 
+    public LicensePlate getLicensePlate() {
+        return licensePlate;
+    }
 
-
+    public void setLicensePlate(LicensePlate licensePlate) {
+        this.licensePlate = licensePlate;
+    }
 }

@@ -1,5 +1,6 @@
 package com.absjr.apieasyparking.service;
 
+import com.absjr.apieasyparking.entity.DTO.TicketDTO;
 import com.absjr.apieasyparking.entity.LicensePlate;
 import com.absjr.apieasyparking.entity.Ticket;
 import com.absjr.apieasyparking.exeption.LicensePlateNotFoundException;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 
 
@@ -31,8 +33,7 @@ class PaymentBoxService {
     LicensePlateRepository licensePlateRepository;
 
     @Transactional()
-    public
-    void payment(String plate) {
+    public TicketDTO payment(String plate) {
         LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
 
         if (existingPlate == null) throw new LicensePlateNotFoundException("Plate " + plate + " not found");
@@ -44,13 +45,15 @@ class PaymentBoxService {
         if (latestTicket == null) throw new TicketNotFoundException("Ticket not found");
         if (latestTicket.getDepartureTime() != null) throw new PaymentBoxException("Payment ok");
 
-        LocalDateTime departureTime = LocalDateTime.now();
+        LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
         BigDecimal value = getFare(duration);
 
         latestTicket.setDepartureTime(departureTime);
         latestTicket.setAmountPaid(value);
         ticketRepository.save(latestTicket);
+
+        return new TicketDTO(latestTicket);
     }
 
 
