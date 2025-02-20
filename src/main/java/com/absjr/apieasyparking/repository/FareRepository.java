@@ -1,7 +1,7 @@
 package com.absjr.apieasyparking.repository;
 
-import com.absjr.apieasyparking.entity.Fare;
+import com.absjr.apieasyparking.entity.MotorcycleFare;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FareRepository extends JpaRepository<Fare,Long > {
+public interface FareRepository extends JpaRepository<MotorcycleFare,Long > {
 }
