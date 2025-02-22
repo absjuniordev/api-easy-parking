@@ -3,6 +3,7 @@ package com.absjr.apieasyparking.entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "tb_motorcycle_fare")
@@ -17,14 +18,14 @@ public class MotorcycleFare {
     @Column(nullable = false)
     private BigDecimal additionalValue;
     @Column(nullable = false)
-    private Duration minimumStay;
+    private LocalTime minimumStay;
     @Column(nullable = false)
-    private Duration additionalStay;
+    private LocalTime additionalStay;
 
     public MotorcycleFare() {
     }
 
-    public MotorcycleFare(BigDecimal valueFare, BigDecimal additionalValue, Duration minimumStay, Duration additionalStay) {
+    public MotorcycleFare(BigDecimal valueFare, BigDecimal additionalValue, LocalTime minimumStay, LocalTime additionalStay) {
         this.valueFare = valueFare;
         this.additionalValue = additionalValue;
         this.minimumStay = minimumStay;
@@ -56,20 +57,20 @@ public class MotorcycleFare {
     }
 
 
-    public Duration getMinimumStay() {
+    public LocalTime getMinimumStay() {
         return minimumStay;
     }
 
-    public void setMinimumStay(Duration minimumStay) {
+    public void setMinimumStay(LocalTime minimumStay) {
         this.minimumStay = minimumStay;
     }
 
 
-    public Duration getAdditionalStay() {
+    public LocalTime getAdditionalStay() {
         return additionalStay;
     }
 
-    public void setAdditionalStay( Duration additionalStay) {
+    public void setAdditionalStay( LocalTime additionalStay) {
         this.additionalStay = additionalStay;
     }
 }
