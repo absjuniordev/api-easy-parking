@@ -1,6 +1,6 @@
 package com.absjr.apieasyparking.controller;
 
-import com.absjr.apieasyparking.entity.DTO.AccessDTO;
+import com.absjr.apieasyparking.entity.Access;
 import com.absjr.apieasyparking.entity.DTO.TicketDTO;
 import com.absjr.apieasyparking.entity.Ticket;
 import com.absjr.apieasyparking.service.TicketService;
@@ -21,7 +21,7 @@ class TicketController {
 
     @PostMapping
     public
-    ResponseEntity<TicketDTO> createTicket(@RequestBody AccessDTO createTKT) {
+    ResponseEntity<TicketDTO> createTicket(@RequestBody Access createTKT) {
         Ticket ticket = ticketService.createTicket(createTKT.getPlate(), createTKT.getVehicleType(), createTKT.getOperatorName());
         return ResponseEntity.status(HttpStatus.CREATED).body(new TicketDTO(ticket));
     }

@@ -15,6 +15,10 @@ public class CarFareDTO {
     private Duration minimumStay;
     private Duration additionalStay;
 
+    public
+    CarFareDTO() {
+    }
+
     public CarFareDTO(CarFare entity) {
         BeanUtils.copyProperties(entity, this);
     }

@@ -7,7 +7,8 @@ import java.time.Duration;
 
 @Entity
 @Table(name = "tb_car_fare")
-public class CarFare {
+public
+class CarFare {
 
 
     @Id
@@ -23,55 +24,68 @@ public class CarFare {
     @Column(nullable = false)
     private Duration additionalStay;
 
-    public CarFare() {
+    public
+    CarFare() {
     }
 
-    public CarFare(BigDecimal valueFare, BigDecimal additionalValue, Duration minimumStay, Duration additionalStay) {
+    public
+    CarFare(BigDecimal valueFare, BigDecimal additionalValue, Duration minimumStay, Duration additionalStay) {
         this.valueFare = valueFare;
         this.additionalValue = additionalValue;
         this.minimumStay = minimumStay;
         this.additionalStay = additionalStay;
     }
 
-    public Long getId() {
+    public
+    Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public
+    void setId(Long id) {
         this.id = id;
     }
 
-    public BigDecimal getValueFare() {
+    public
+    BigDecimal getValueFare() {
         return valueFare;
     }
 
-    public void setValueFare( BigDecimal valueFare) {
+    public
+    void setValueFare(BigDecimal valueFare) {
         this.valueFare = valueFare;
     }
 
-    public BigDecimal getAdditionalValue() {
+    public
+    BigDecimal getAdditionalValue() {
         return additionalValue;
     }
 
-    public void setAdditionalValue(BigDecimal additionalValue) {
+    public
+    void setAdditionalValue(BigDecimal additionalValue) {
         this.additionalValue = additionalValue;
     }
 
 
-    public Duration getMinimumStay() {
+    public
+    Duration getMinimumStay() {
         return minimumStay;
     }
 
-    public void setMinimumStay(Duration minimumStay) {
+    public
+    void setMinimumStay(Duration minimumStay) {
         this.minimumStay = minimumStay;
     }
 
 
-    public Duration getAdditionalStay() {
+    public
+    Duration getAdditionalStay() {
         return additionalStay;
     }
 
-    public void setAdditionalStay( Duration additionalStay) {
+    public
+    void setAdditionalStay(Duration additionalStay) {
         this.additionalStay = additionalStay;
     }
+    
 }

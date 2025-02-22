@@ -1,6 +1,6 @@
-package com.absjr.apieasyparking.entity.DTO;
+package com.absjr.apieasyparking.entity;
 
-public class AccessDTO {
+public class Access {
     String plate;
     String vehicleType;
     String operatorName;
