@@ -2,15 +2,17 @@ package com.absjr.apieasyparking.entity.DTO;
 
 import com.absjr.apieasyparking.entity.MotorcycleFare;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
 
+@Setter
+@Getter
 public
 class MotorcycleFareDTO {
-
-
 
     private Long id;
     private BigDecimal valueFare;
@@ -29,53 +31,4 @@ class MotorcycleFareDTO {
         BeanUtils.copyProperties(entity, this);
     }
 
-    public
-    Long getId() {
-        return id;
-    }
-
-    public
-    void setId(Long id) {
-        this.id = id;
-    }
-
-    public
-    BigDecimal getValueFare() {
-        return valueFare;
-    }
-
-    public
-    void setValueFare(BigDecimal valueFare) {
-        this.valueFare = valueFare;
-    }
-
-    public
-    BigDecimal getAdditionalValue() {
-        return additionalValue;
-    }
-
-    public
-    void setAdditionalValue(BigDecimal additionalValue) {
-        this.additionalValue = additionalValue;
-    }
-
-    public
-    LocalTime getMinimumStay() {
-        return minimumStay;
-    }
-
-    public
-    void setMinimumStay(LocalTime minimumStay) {
-        this.minimumStay = minimumStay;
-    }
-
-    public
-    LocalTime getAdditionalStay() {
-        return additionalStay;
-    }
-
-    public
-    void setAdditionalStay(LocalTime additionalStay) {
-        this.additionalStay = additionalStay;
-    }
 }

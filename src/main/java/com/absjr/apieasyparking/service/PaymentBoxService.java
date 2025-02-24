@@ -32,6 +32,9 @@ class PaymentBoxService {
     private
     LicensePlateRepository licensePlateRepository;
 
+    @Autowired
+    private CarFareService  carFareService;
+
     @Transactional()
     public TicketDTO payment(String plate) {
         LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
@@ -47,7 +50,9 @@ class PaymentBoxService {
 
         LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
-        BigDecimal value = getFare(duration);
+
+        BigDecimal value =  carFareService.calculateCarFare(duration);
+
 
         latestTicket.setDepartureTime(departureTime);
         latestTicket.setAmountPaid(value);
@@ -58,17 +63,7 @@ class PaymentBoxService {
 
 
 
-    private static BigDecimal getFare(Duration duration) {
-        BigDecimal value;
-        if (duration.toHours() <= 3) {
-            value = new BigDecimal("5.00");
-        } else if (duration.toHours() <= 6) {
-            value = new BigDecimal("7.00");
-        } else {
-            value = new BigDecimal("10.00");
-        }
-        return value;
-    }
+
 
 
 }

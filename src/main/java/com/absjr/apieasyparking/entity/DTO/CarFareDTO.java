@@ -2,11 +2,16 @@ package com.absjr.apieasyparking.entity.DTO;
 
 import com.absjr.apieasyparking.entity.CarFare;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalTime;
 
+@Getter
+@Setter
 public class CarFareDTO {
 
     private Long id;
@@ -25,43 +30,15 @@ public class CarFareDTO {
         BeanUtils.copyProperties(entity, this);
     }
 
-    public Long getId() {
-        return id;
+    public Duration toDuration(LocalTime localTime) {
+        return Duration.ofMinutes(localTime.getHour() * 60 + localTime.getMinute());
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Duration getMinimumStayDuration() {
+        return toDuration(minimumStay);
     }
 
-    public BigDecimal getValueFare() {
-        return valueFare;
-    }
-
-    public void setValueFare(BigDecimal valueFare) {
-        this.valueFare = valueFare;
-    }
-
-    public BigDecimal getAdditionalValue() {
-        return additionalValue;
-    }
-
-    public void setAdditionalValue(BigDecimal additionalValue) {
-        this.additionalValue = additionalValue;
-    }
-
-    public LocalTime  getMinimumStay() {
-        return minimumStay;
-    }
-
-    public void setMinimumStay(LocalTime  minimumStay) {
-        this.minimumStay = minimumStay;
-    }
-
-    public LocalTime  getAdditionalStay() {
-        return additionalStay;
-    }
-
-    public void setAdditionalStay(LocalTime  additionalStay) {
-        this.additionalStay = additionalStay;
+    public Duration getAdditionalStayDuration() {
+        return toDuration(additionalStay);
     }
 }
