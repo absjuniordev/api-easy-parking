@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface CarFareRepository extends JpaRepository<CarFare,Long > {
-
     @Query("SELECT cf FROM CarFare cf")
     Optional<CarFare> findFirstCarFare();
 }
