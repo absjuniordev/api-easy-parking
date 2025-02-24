@@ -159,8 +159,9 @@ Se você deseja contribuir para o **Easy Parking**, siga os seguintes passos:
 ## 📧 Contato
 
 - Desenvolvido por: **Arnaldo Junior**
-- Email: [arnaldo.junior@email.com](mailto:arnaldo.junior@email.com)
-- Website: [www.arnaldo-junior.com](https://www.arnaldo-junior.com)
+- Email: [abs.junnior@hotmail.com]
+- WhatsApp: https://wa.me/5571993346500?text=
+
 
 ---
 
