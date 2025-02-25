@@ -1,7 +1,7 @@
 package com.absjr.apieasyparking.controller;
 
-import com.absjr.apieasyparking.entity.DTO.MotorcycleFareDTO;
-import com.absjr.apieasyparking.service.MotorcycleFareService;
+import com.absjr.apieasyparking.entity.DTO.BikeFareDTO;
+import com.absjr.apieasyparking.service.BikeFareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +17,12 @@ class MotorcycleFareController {
 
     @Autowired
     private
-    MotorcycleFareService  motorcycleFareService;
+    BikeFareService bikeFareService;
 
     @PostMapping
     public
-    ResponseEntity<MotorcycleFareDTO> createCarFare(@RequestBody MotorcycleFareDTO  motorcycleFareDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(motorcycleFareService.createMotorcycleFare(motorcycleFareDTO));
+    ResponseEntity<BikeFareDTO> createCarFare(@RequestBody BikeFareDTO bikeFareDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(bikeFareService.createMotorcycleFare(bikeFareDTO));
 
     }
 }

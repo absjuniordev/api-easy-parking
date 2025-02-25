@@ -10,10 +10,8 @@ import java.time.LocalTime;
 @Setter
 @Getter
 @Entity
-@Table(name = "tb_car_fare")
-public
-class CarFare {
-
+@Table(name = "tb_bike_fare")
+public class BikeFare {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +27,11 @@ class CarFare {
     private LocalTime additionalStay;
 
     public
-    CarFare() {
+    BikeFare() {
     }
 
     public
-    CarFare(BigDecimal valueFare, BigDecimal additionalValue, LocalTime minimumStay, LocalTime additionalStay) {
+    BikeFare(BigDecimal valueFare, BigDecimal additionalValue, LocalTime minimumStay, LocalTime additionalStay) {
         this.valueFare = valueFare;
         this.additionalValue = additionalValue;
         this.minimumStay = minimumStay;

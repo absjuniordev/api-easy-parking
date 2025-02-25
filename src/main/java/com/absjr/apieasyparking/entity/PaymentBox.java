@@ -2,10 +2,15 @@ package com.absjr.apieasyparking.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "tb_payment_box")
 public class PaymentBox {
@@ -25,30 +30,6 @@ public class PaymentBox {
 
     public PaymentBox(String operatorName, List<Ticket> tickets) {
         this.operatorName = operatorName;
-        this.tickets = tickets;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getOperatorName() {
-        return operatorName;
-    }
-
-    public void setOperatorName(String operatorName) {
-        this.operatorName = operatorName;
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
 

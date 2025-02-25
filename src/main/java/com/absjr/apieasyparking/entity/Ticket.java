@@ -2,12 +2,16 @@ package com.absjr.apieasyparking.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "tb_ticket")
 public class Ticket {
@@ -44,62 +48,6 @@ public class Ticket {
         this.departureTime = departureTime ;
         this.amountPaid = amountPaid;
         this.licensePlate = licensePlate;
-        this.paymentBox = paymentBox;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTicketCode() {
-        return ticketCode;
-    }
-
-    public void setTicketCode(String ticketCode) {
-        this.ticketCode = ticketCode;
-    }
-
-    public LocalDateTime getEntryTime() {
-        return entryTime;
-    }
-
-    public void setEntryTime(LocalDateTime entryTime) {
-        this.entryTime = entryTime;
-    }
-
-    public LocalDateTime getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(LocalDateTime departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public BigDecimal getAmountPaid() {
-        return amountPaid;
-    }
-
-    public void setAmountPaid(BigDecimal amountPaid) {
-        this.amountPaid = amountPaid;
-    }
-
-    public LicensePlate getLicensePlate() {
-        return licensePlate;
-    }
-
-    public void setLicensePlate(LicensePlate licensePlate) {
-        this.licensePlate = licensePlate;
-    }
-
-    public PaymentBox getPaymentBox() {
-        return paymentBox;
-    }
-
-    public void setPaymentBox(PaymentBox paymentBox) {
         this.paymentBox = paymentBox;
     }
 

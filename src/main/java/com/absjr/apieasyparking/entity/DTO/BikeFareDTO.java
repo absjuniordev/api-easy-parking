@@ -1,6 +1,6 @@
 package com.absjr.apieasyparking.entity.DTO;
 
-import com.absjr.apieasyparking.entity.MotorcycleFare;
+import com.absjr.apieasyparking.entity.BikeFare;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @Setter
 @Getter
 public
-class MotorcycleFareDTO {
+class BikeFareDTO {
 
     private Long id;
     private BigDecimal valueFare;
@@ -24,11 +24,11 @@ class MotorcycleFareDTO {
     private LocalTime additionalStay;
 
     public
-    MotorcycleFareDTO() {
+    BikeFareDTO() {
     }
 
     public
-    MotorcycleFareDTO(MotorcycleFare entity) {
+    BikeFareDTO(BikeFare entity) {
         BeanUtils.copyProperties(entity, this);
     }
 
