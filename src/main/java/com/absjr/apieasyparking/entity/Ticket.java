@@ -30,6 +30,8 @@ public class Ticket {
 
     private BigDecimal amountPaid;
 
+    private Boolean paid ;
+
     @ManyToOne
     @JoinColumn(name = "license_plate_id")
     private LicensePlate licensePlate;
@@ -42,13 +44,14 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String ticketCode, LocalDateTime entryTime, LocalDateTime departureTime, BigDecimal amountPaid, LicensePlate licensePlate, PaymentBox paymentBox) {
+    public Ticket(String ticketCode, LocalDateTime entryTime, LocalDateTime departureTime, BigDecimal amountPaid, LicensePlate licensePlate, PaymentBox paymentBox, Boolean paid) {
         this.ticketCode = ticketCode;
         this.entryTime =  entryTime.truncatedTo(ChronoUnit.SECONDS);
         this.departureTime = departureTime ;
         this.amountPaid = amountPaid;
         this.licensePlate = licensePlate;
         this.paymentBox = paymentBox;
+        this.paid = paid ;
     }
 
     @Override

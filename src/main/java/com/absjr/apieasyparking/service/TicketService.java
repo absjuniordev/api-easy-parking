@@ -44,7 +44,7 @@ class TicketService {
 
         LicensePlate existingPlate = licensePlateService.getOrCreateLicensePlate(plate, vehicleType);
         String ticketCode = randomCode();
-        Ticket ticket = new Ticket(ticketCode, LocalDateTime.now(), null, null, existingPlate, paymentBox);
+        Ticket ticket = new Ticket(ticketCode, LocalDateTime.now(), null, null, existingPlate, paymentBox, false);
 
         ticket = ticketRepository.save(ticket);
         existingPlate.getTickets().add(ticket);
@@ -70,6 +70,8 @@ class TicketService {
         if (resultSearch.isEmpty()) throw new TicketNotFoundException("List is empty");
         return resultSearch;
     }
+
+
 
     private
     String randomCode() {

@@ -60,7 +60,7 @@ class PaymentBoxService {
                 carFareService.calculateCarFare(duration) :
                 bikeFareService.calculateBikeFare(duration);
 
-
+        latestTicket.setPaid(true);
         latestTicket.setDepartureTime(departureTime);
         latestTicket.setAmountPaid(value);
         ticketRepository.save(latestTicket);

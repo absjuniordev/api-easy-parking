@@ -7,12 +7,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Setter
 @Getter
-public class TicketDTO {
+public
+class TicketDTO {
 
     private Long id;
     private String ticketCode;
@@ -21,15 +21,18 @@ public class TicketDTO {
     private BigDecimal amountPaid;
     private PaymentBox operatorName;
     private LicensePlate licensePlate;
+    private Boolean paid;
 
-    public TicketDTO(Ticket entity) {
+    public
+    TicketDTO(Ticket entity) {
         this.id = entity.getId();
         this.ticketCode = entity.getTicketCode();
         this.entryTime = entity.getEntryTime();
         this.departureTime = entity.getDepartureTime();
         this.amountPaid = entity.getAmountPaid();
         this.licensePlate = entity.getLicensePlate();
-        this.operatorName = entity.getPaymentBox() ;
+        this.operatorName = entity.getPaymentBox();
+        this.paid = entity.getPaid();
     }
 
 }
