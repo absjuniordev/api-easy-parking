@@ -101,7 +101,7 @@ Aqui estão os principais **endpoints** disponíveis na API:
   },
   "licensePlate": {
     "plate": "ABC-1234",
-    "vehicleType": "CARRO"
+    "vehicleType": "CAR"
   }
 }
 ```
@@ -113,7 +113,7 @@ Aqui estão os principais **endpoints** disponíveis na API:
 ```json
 {
   "plate": "ABS-1234",
-  "vehicleType": "CARRO",
+  "vehicleType": "CAR",
   "tickets": [
     {
       "id": 1,
@@ -127,7 +127,7 @@ Aqui estão os principais **endpoints** disponíveis na API:
       },
       "licensePlate": {
         "plate": "ABC-1234",
-        "vehicleType": "CARRO"
+        "vehicleType": "CAR"
       }
     }
   ]
@@ -159,7 +159,7 @@ Se você deseja contribuir para o **Easy Parking**, siga os seguintes passos:
 ## 📧 Contato
 
 - Desenvolvido por: **Arnaldo Junior**
-- Email: [abs.junnior@hotmail.com]
+- Email: abs.junnior@hotmail.com
 - WhatsApp: https://wa.me/5571993346500?text=
 
 
