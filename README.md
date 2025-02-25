@@ -82,7 +82,7 @@ Aqui estão os principais **endpoints** disponíveis na API:
 ```json
 {
   "plate": "ABS-1234",
-  "vehicleType": "CARRO",
+  "vehicleType": "CAR",
   "operatorName": "Arnaldo"
 }
 ```

@@ -1,5 +1,6 @@
 package com.absjr.apieasyparking.controller.exception;
 
+import com.absjr.apieasyparking.exeption.FareNotFoundException;
 import com.absjr.apieasyparking.exeption.LicensePlateNotFoundException;
 import com.absjr.apieasyparking.exeption.PaymentBoxException;
 import com.absjr.apieasyparking.exeption.TicketNotFoundException;
@@ -35,5 +36,12 @@ class GlobalExceptionHandler {
         String message = exception.getMessage();
         logger.error("Error: ", exception);
         return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(FareNotFoundException.class)
+    public ResponseEntity<String> handleFareException(FareNotFoundException exception){
+        String message = exception.getMessage();
+        logger.error("Error: " , exception);
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 }

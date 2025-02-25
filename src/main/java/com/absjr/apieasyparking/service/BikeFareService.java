@@ -2,6 +2,7 @@ package com.absjr.apieasyparking.service;
 
 import com.absjr.apieasyparking.entity.DTO.BikeFareDTO;
 import com.absjr.apieasyparking.entity.BikeFare;
+import com.absjr.apieasyparking.exeption.FareNotFoundException;
 import com.absjr.apieasyparking.repository.BikeFareRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class BikeFareService {
         Optional<BikeFare> optionalBikeFare = bikeFareRepository.findFirstBikeFare();
 
         if (optionalBikeFare.isEmpty()) {
-            throw new RuntimeException("Fare not found");
+            throw new FareNotFoundException("Fare don't created");
         }
 
         BigDecimal finalPrice;
