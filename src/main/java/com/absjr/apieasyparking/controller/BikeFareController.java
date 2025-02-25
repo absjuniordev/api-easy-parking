@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/api/motorcycle-fare")
+@RequestMapping("/api/bike-fare")
 public
-class MotorcycleFareController {
+class BikeFareController {
 
     @Autowired
     private
@@ -21,8 +21,8 @@ class MotorcycleFareController {
 
     @PostMapping
     public
-    ResponseEntity<BikeFareDTO> createCarFare(@RequestBody BikeFareDTO bikeFareDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(bikeFareService.createMotorcycleFare(bikeFareDTO));
+    ResponseEntity<BikeFareDTO> createBikeFare(@RequestBody BikeFareDTO bikeFareDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(bikeFareService.createBikeFare(bikeFareDTO));
 
     }
 }
