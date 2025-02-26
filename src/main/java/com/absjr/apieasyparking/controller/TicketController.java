@@ -1,8 +1,9 @@
 package com.absjr.apieasyparking.controller;
 
-import com.absjr.apieasyparking.entity.Access;
+import com.absjr.apieasyparking.model.Access;
 import com.absjr.apieasyparking.entity.DTO.TicketDTO;
 import com.absjr.apieasyparking.entity.Ticket;
+import com.absjr.apieasyparking.model.DateRange;
 import com.absjr.apieasyparking.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,9 +36,18 @@ class TicketController {
 
     @GetMapping
     public
-    ResponseEntity<List<String>> gelAllTicket() {
-        return ResponseEntity.ok().body(ticketService.getAllTicket());
+    ResponseEntity<List<String>> findTicketsForToday() {
+        return ResponseEntity.ok().body(ticketService.findTicketsForToday());
     }
 
+    @GetMapping("/paid/{paid}")
+    public ResponseEntity<List<String>> findTicketsByPaidStatusAndDate(@PathVariable Boolean paid) {
+        return ResponseEntity.ok().body(ticketService.findTicketsByPaidStatusAndDate(paid));
+    }
+
+    @GetMapping("/searchByDate")
+    public ResponseEntity<List<String>> findTicketsByEntryTimeBetween(@RequestBody DateRange dateRange ){
+        return ResponseEntity.ok().body(ticketService.findTicketsByEntryTimeBetween(dateRange.getStartDate(), dateRange.getEndDate()));
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.absjr.apieasyparking.entity;
+package com.absjr.apieasyparking.model;
 
 import lombok.Getter;
 import lombok.Setter;

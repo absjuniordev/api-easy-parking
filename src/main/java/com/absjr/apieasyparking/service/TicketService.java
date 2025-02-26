@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -62,8 +64,8 @@ class TicketService {
 
     @Transactional(readOnly = true)
     public
-    List<String> getAllTicket() {
-        List<String> resultSearch = ticketRepository.findAll()
+    List<String> findTicketsForToday() {
+        List<String> resultSearch = ticketRepository.findTicketsForToday()
                 .stream()
                 .map(Ticket::getTicketCode)
                 .collect(Collectors.toList());
@@ -71,6 +73,23 @@ class TicketService {
         return resultSearch;
     }
 
+    public List<String> findTicketsByPaidStatusAndDate(Boolean paid){
+        List<String> resultSearch = ticketRepository.findTicketsByPaidStatusAndDate(paid)
+                .stream()
+                .map(Ticket::getTicketCode)
+                .collect(Collectors.toList());
+        if (resultSearch.isEmpty()) throw new TicketNotFoundException("List is empty");
+        return resultSearch;
+    }
+
+    public List<String> findTicketsByEntryTimeBetween(LocalDateTime startDate, LocalDateTime endDate){
+        List<String> resultSearch =  ticketRepository.findTicketsByEntryTimeBetween(startDate, endDate)
+                .stream()
+                .map(Ticket::getTicketCode)
+                .collect(Collectors.toList());
+        if (resultSearch.isEmpty()) throw new TicketNotFoundException("List is empty");
+        return resultSearch;
+    }
 
 
     private
