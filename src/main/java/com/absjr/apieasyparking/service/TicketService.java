@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,7 +30,6 @@ class TicketService {
 
     @Autowired
     private PaymentBoxRepository paymentBoxRepository;
-
 
     @Transactional(readOnly = true)
     public
@@ -59,7 +56,7 @@ class TicketService {
     TicketDTO findByTicket(String ticket) {
         Ticket existingTicket = ticketRepository.findByTicketCode(ticket);
         if (existingTicket == null) throw new TicketNotFoundException("The Ticket " + ticket + " does not exist");
-        return new TicketDTO(existingTicket) ;
+        return new TicketDTO(existingTicket);
     }
 
     @Transactional(readOnly = true)
@@ -73,7 +70,8 @@ class TicketService {
         return resultSearch;
     }
 
-    public List<String> findTicketsByPaidStatusAndDate(Boolean paid){
+    public
+    List<String> findTicketsByPaidStatusAndDate(Boolean paid) {
         List<String> resultSearch = ticketRepository.findTicketsByPaidStatusAndDate(paid)
                 .stream()
                 .map(Ticket::getTicketCode)
@@ -82,12 +80,20 @@ class TicketService {
         return resultSearch;
     }
 
-    public List<String> findTicketsByEntryTimeBetween(LocalDateTime startDate, LocalDateTime endDate){
-        List<String> resultSearch =  ticketRepository.findTicketsByEntryTimeBetween(startDate, endDate)
+    public
+    List<String> findTicketsByEntryTimeBetween(LocalDate startDate, LocalDate endDate) {
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.plusDays(1).atStartOfDay();
+
+        List<String> resultSearch = ticketRepository.findTicketsByEntryTimeBetween(startDateTime, endDateTime)
                 .stream()
                 .map(Ticket::getTicketCode)
                 .collect(Collectors.toList());
-        if (resultSearch.isEmpty()) throw new TicketNotFoundException("List is empty");
+
+        if (resultSearch.isEmpty()) {
+            throw new TicketNotFoundException("List is empty");
+        }
+
         return resultSearch;
     }
 
