@@ -40,7 +40,7 @@ class LicensePlateService {
         return new LicensePlateDTO(licensePlate);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public
     void delete(String plate) {
         if (!licensePlateRepository.existsById(plate)) {
