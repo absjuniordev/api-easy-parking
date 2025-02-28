@@ -4,15 +4,18 @@ import com.absjr.apieasyparking.entity.DTO.TicketDTO;
 import com.absjr.apieasyparking.entity.LicensePlate;
 import com.absjr.apieasyparking.entity.PaymentBox;
 import com.absjr.apieasyparking.entity.Ticket;
+import com.absjr.apieasyparking.entity.TicketSequence;
 import com.absjr.apieasyparking.exeption.TicketNotFoundException;
 import com.absjr.apieasyparking.repository.PaymentBoxRepository;
 import com.absjr.apieasyparking.repository.TicketRepository;
+import com.absjr.apieasyparking.repository.TicketSequenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -31,7 +34,10 @@ class TicketService {
     @Autowired
     private PaymentBoxRepository paymentBoxRepository;
 
-    @Transactional(readOnly = true)
+    @Autowired
+    private TicketSequenceRepository ticketSequenceRepository;
+
+    @Transactional
     public
     Ticket createTicket(String plate, String vehicleType, String operatorName) {
         PaymentBox paymentBox = paymentBoxRepository.findByOperatorName(operatorName);
@@ -41,8 +47,10 @@ class TicketService {
             paymentBox = paymentBoxRepository.save(paymentBox);
         }
 
+        String idOperator = String.valueOf(paymentBox.getId());
+
         LicensePlate existingPlate = licensePlateService.getOrCreateLicensePlate(plate, vehicleType);
-        String ticketCode = randomCode();
+        String ticketCode = generateTicketCode();
         Ticket ticket = new Ticket(ticketCode, LocalDateTime.now(), null, null, existingPlate, paymentBox, false);
 
         ticket = ticketRepository.save(ticket);
@@ -70,6 +78,7 @@ class TicketService {
         return resultSearch;
     }
 
+    @Transactional(readOnly = true)
     public
     List<String> findTicketsByPaidStatusAndDate(Boolean paid) {
         List<String> resultSearch = ticketRepository.findTicketsByPaidStatusAndDate(paid)
@@ -80,6 +89,7 @@ class TicketService {
         return resultSearch;
     }
 
+    @Transactional(readOnly = true)
     public
     List<String> findTicketsByEntryTimeBetween(LocalDate startDate, LocalDate endDate) {
         LocalDateTime startDateTime = startDate.atStartOfDay();
@@ -98,9 +108,30 @@ class TicketService {
     }
 
 
-    private
-    String randomCode() {
-        return String.format("%06d", new Random().nextInt(999999));
+    //DELETE ALL
+    //DELETE BY TICKET CODE
+
+    private String generateTicketCode() {
+        String period = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+
+        TicketSequence ticketSequence = ticketSequenceRepository.findByPeriod(period)
+                .orElseGet(() -> createNewTicketSequence(period));
+
+        String ticketCode = period + ticketSequence.getSequencerNumber();
+
+        ticketSequence.setSequencerNumber(ticketSequence.getSequencerNumber() + 1);
+        ticketSequenceRepository.save(ticketSequence);
+
+        return ticketCode;
+    }
+
+    private TicketSequence createNewTicketSequence(String period) {
+        TicketSequence newSequence = new TicketSequence();
+        newSequence.setId(1L);
+        newSequence.setPeriod(period);
+        newSequence.setSequencerNumber(1L);
+        ticketSequenceRepository.save(newSequence);
+        return newSequence;
     }
 
 
