@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Duration;
-import java.time.LocalTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,8 +23,10 @@ class CarFareService {
         CarFare carFare = new CarFare(
                 carFareDTO.getValueFare(),
                 carFareDTO.getAdditionalValue(),
+                carFareDTO.getOvernight(),
                 carFareDTO.getMinimumStay(),
                 carFareDTO.getAdditionalStay()
+
         );
 
         carFareRepository.save(carFare);

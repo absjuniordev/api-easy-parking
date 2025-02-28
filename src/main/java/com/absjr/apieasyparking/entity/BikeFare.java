@@ -22,6 +22,8 @@ public class BikeFare {
     @Column(nullable = false)
     private BigDecimal additionalValue;
     @Column(nullable = false)
+    private BigDecimal overnight;
+    @Column(nullable = false)
     private LocalTime minimumStay;
     @Column(nullable = false)
     private LocalTime additionalStay;
@@ -31,11 +33,13 @@ public class BikeFare {
     }
 
     public
-    BikeFare(BigDecimal valueFare, BigDecimal additionalValue, LocalTime minimumStay, LocalTime additionalStay) {
+    BikeFare(BigDecimal valueFare, BigDecimal additionalValue,
+             BigDecimal overnight ,LocalTime minimumStay, LocalTime additionalStay) {
         this.valueFare = valueFare;
         this.additionalValue = additionalValue;
         this.minimumStay = minimumStay;
         this.additionalStay = additionalStay;
+        this.overnight = overnight;
     }
 
 

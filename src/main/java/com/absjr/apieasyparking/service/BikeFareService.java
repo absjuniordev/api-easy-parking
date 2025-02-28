@@ -23,6 +23,7 @@ public class BikeFareService {
         BikeFare bikeFare = new BikeFare(
                 bikeFareDTO.getValueFare(),
                 bikeFareDTO.getAdditionalValue(),
+                bikeFareDTO.getOvernight(),
                 bikeFareDTO.getMinimumStay(),
                 bikeFareDTO.getAdditionalStay()
         );

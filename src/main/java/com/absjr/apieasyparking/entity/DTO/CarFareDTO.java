@@ -17,6 +17,7 @@ public class CarFareDTO {
     private Long id;
     private BigDecimal valueFare;
     private BigDecimal additionalValue;
+    private BigDecimal overnight;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime minimumStay;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
