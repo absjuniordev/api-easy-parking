@@ -56,7 +56,7 @@ Aqui estão os principais **endpoints** disponíveis na API:
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/arnaldo-junior/easy-parking-api.git
+   git clone https://github.com/absjuniordev/api-easy-parking.git
    ```
 
 2. Entre na pasta do projeto:
@@ -81,28 +81,29 @@ Aqui estão os principais **endpoints** disponíveis na API:
 **Request Body**:
 ```json
 {
-  "plate": "ABS-1234",
-  "vehicleType": "CAR",
-  "operatorName": "Arnaldo"
+   "plate": "ABC-1234",
+   "vehicleType": "CAR",
+   "operatorName": "Julin"
 }
 ```
 
 **Response**:
 ```json
 {
-  "id": 1,
-  "ticketCode": "151280",
-  "entryTime": "2025-02-24T17:39:40",
-  "departureTime": null,
-  "amountPaid": null,
-  "operatorName": {
-    "id": 1,
-    "operatorName": "Analdo"
-  },
-  "licensePlate": {
-    "plate": "ABC-1234",
-    "vehicleType": "CAR"
-  }
+   "id": 1,
+   "ticketCode": "202502289",
+   "entryTime": "2025-02-28T12:01:16",
+   "departureTime": null,
+   "amountPaid": null,
+   "operatorName": {
+      "id": 1,
+      "operatorName": "Julin"
+   },
+   "licensePlate": {
+      "plate": "ABC-1234",
+      "vehicleType": "CAR"
+   },
+   "paid": false
 }
 ```
 
@@ -115,21 +116,22 @@ Aqui estão os principais **endpoints** disponíveis na API:
   "plate": "ABS-1234",
   "vehicleType": "CAR",
   "tickets": [
-    {
-      "id": 1,
-      "ticketCode": "151280",
-      "entryTime": "2025-02-24T17:39:40",
-      "departureTime": null,
-      "amountPaid": null,
-      "operatorName": {
-        "id": 1,
-        "operatorName": "Arnaldo"
-      },
-      "licensePlate": {
-        "plate": "ABC-1234",
-        "vehicleType": "CAR"
-      }
-    }
+     {
+        "id": 9,
+        "ticketCode": "202502289",
+        "entryTime": "2025-02-28T12:01:16",
+        "departureTime": null,
+        "amountPaid": null,
+        "operatorName": {
+           "id": 1,
+           "operatorName": "Julin"
+        },
+        "licensePlate": {
+           "plate": "ABC-1234",
+           "vehicleType": "CAR"
+        },
+        "paid": false
+     }
   ]
 }
 ```
