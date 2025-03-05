@@ -2,6 +2,8 @@ package com.absjr.apieasyparking.controller;
 
 import com.absjr.apieasyparking.entity.DTO.LicensePlateDTO;
 import com.absjr.apieasyparking.entity.LicensePlate;
+import com.absjr.apieasyparking.model.DateRange;
+import com.absjr.apieasyparking.model.PlateUpdate;
 import com.absjr.apieasyparking.service.LicensePlateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +35,18 @@ class LicensePlateController {
     }
 
     @GetMapping
-    ResponseEntity<List<LicensePlate>> getAllPlate(){
-        List<LicensePlate> plate =  licensePlateService.getAllPlate();
-        return  ResponseEntity.ok().body(plate);
+    ResponseEntity<List<String>> findLicensePlateForToday(){
+        return  ResponseEntity.ok().body(licensePlateService.findLicensePlateForToday());
     }
+
+    @GetMapping("/searchByDate")
+    ResponseEntity<List<String>> findLicensePlateByEntryTimeBetween(@RequestBody DateRange dateRange){
+        return ResponseEntity.ok().body(licensePlateService.findLicensePlateByEntryTimeBetween(dateRange.getStartDate(), dateRange.getEndDate()));
+    }
+
+    @PutMapping("/update")
+    ResponseEntity<LicensePlateDTO> updateLicensePlate(@RequestBody PlateUpdate plateUpdate){
+        return ResponseEntity.ok().body(licensePlateService.updateLicensePlate(plateUpdate.getActualPlate(), plateUpdate.getNewPlate()));
+    }
+
 }
