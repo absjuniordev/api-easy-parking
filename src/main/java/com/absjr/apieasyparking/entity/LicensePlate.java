@@ -16,7 +16,11 @@ import java.util.Objects;
 @Table(name = "tb_license_table")
 public class LicensePlate {
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String plate;
 
     @Enumerated(EnumType.STRING)
