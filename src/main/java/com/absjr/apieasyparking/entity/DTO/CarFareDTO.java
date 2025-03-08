@@ -22,6 +22,8 @@ public class CarFareDTO {
     private LocalTime minimumStay;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime additionalStay;
+    private Integer startOvernight;
+    private Integer endOvernight;
 
     public
     CarFareDTO() {

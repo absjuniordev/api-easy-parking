@@ -27,6 +27,8 @@ public class BikeFare {
     private LocalTime minimumStay;
     @Column(nullable = false)
     private LocalTime additionalStay;
+    private Integer startOvernight;
+    private Integer endOvernight;
 
     public
     BikeFare() {
@@ -34,12 +36,14 @@ public class BikeFare {
 
     public
     BikeFare(BigDecimal valueFare, BigDecimal additionalValue,
-             BigDecimal overnight ,LocalTime minimumStay, LocalTime additionalStay) {
+             BigDecimal overnight ,LocalTime minimumStay, LocalTime additionalStay, Integer startOvernight, Integer endOvernight) {
         this.valueFare = valueFare;
         this.additionalValue = additionalValue;
         this.minimumStay = minimumStay;
         this.additionalStay = additionalStay;
         this.overnight = overnight;
+        this.startOvernight = startOvernight;
+        this.endOvernight = endOvernight;
     }
 
 

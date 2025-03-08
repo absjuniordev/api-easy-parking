@@ -28,18 +28,22 @@ class CarFare {
     private LocalTime minimumStay;
     @Column(nullable = false)
     private LocalTime additionalStay;
+    private Integer startOvernight;
+    private Integer endOvernight;
 
     public
     CarFare() {
     }
 
     public
-    CarFare(BigDecimal valueFare, BigDecimal additionalValue,BigDecimal overnight ,LocalTime minimumStay, LocalTime additionalStay) {
+    CarFare(BigDecimal valueFare, BigDecimal additionalValue,BigDecimal overnight ,LocalTime minimumStay, LocalTime additionalStay, Integer startOvernight, Integer endOvernight) {
         this.valueFare = valueFare;
         this.additionalValue = additionalValue;
         this.minimumStay = minimumStay;
         this.additionalStay = additionalStay;
         this.overnight = overnight;
+        this.startOvernight = startOvernight;
+        this.endOvernight = endOvernight;
     }
 
 

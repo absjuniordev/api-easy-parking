@@ -56,8 +56,8 @@ class PaymentBoxService {
         Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
 
         BigDecimal value = existingPlate.getVehicleType() == VehicleType.valueOf("CAR") ?
-                carFareService.calculateCarFare(duration) :
-                bikeFareService.calculateBikeFare(duration);
+                carFareService.calculateCarFare(duration,latestTicket.getEntryTime() ,departureTime ) :
+                bikeFareService.calculateBikeFare(duration,latestTicket.getEntryTime() ,departureTime);
 
         latestTicket.setPaid(true);
         latestTicket.setDepartureTime(departureTime);
