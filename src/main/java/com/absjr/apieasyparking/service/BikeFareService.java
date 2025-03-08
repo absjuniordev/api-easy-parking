@@ -52,8 +52,8 @@ public class BikeFareService {
 
         for (LocalDateTime day = entryTime.toLocalDate().atStartOfDay(); !day.isAfter(departureTime); day = day.plusDays(1)) {
 
-            LocalDateTime startOvernight = day.with(LocalTime.of(0, 0));
-            LocalDateTime endOvernight = day.with(LocalTime.of(6, 0));
+            LocalDateTime startOvernight = day.with(LocalTime.of(bikeFareDTO.getStartOvernight(), 0));
+            LocalDateTime endOvernight = day.with(LocalTime.of(bikeFareDTO.getEndOvernight(), 0));
 
             if (departureTime.isAfter(startOvernight) && departureTime.isBefore(endOvernight)) {
                 totalOvernight++;
