@@ -12,36 +12,12 @@ import java.time.LocalTime;
 
 @Getter
 @Setter
-public class CarFareDTO {
+public class CarFareDTO extends FareDTO {
 
-    private Long id;
-    private BigDecimal valueFare;
-    private BigDecimal additionalValue;
-    private BigDecimal overnight;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime minimumStay;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime additionalStay;
-    private Integer startOvernight;
-    private Integer endOvernight;
-
-    public
-    CarFareDTO() {
-    }
-
+    public CarFareDTO(){}
     public CarFareDTO(CarFare entity) {
         BeanUtils.copyProperties(entity, this);
     }
 
-    public Duration toDuration(LocalTime localTime) {
-        return Duration.ofMinutes(localTime.getHour() * 60 + localTime.getMinute());
-    }
 
-    public Duration getMinimumStayDuration() {
-        return toDuration(minimumStay);
-    }
-
-    public Duration getAdditionalStayDuration() {
-        return toDuration(additionalStay);
-    }
 }
