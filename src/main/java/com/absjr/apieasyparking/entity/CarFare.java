@@ -1,50 +1,20 @@
 package com.absjr.apieasyparking.entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
 
-@Setter
-@Getter
 @Entity
 @Table(name = "tb_car_fare")
-public
-class CarFare {
+public class CarFare extends Fare {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
-    private BigDecimal valueFare;
-    @Column(nullable = false)
-    private BigDecimal additionalValue;
-    @Column(nullable = false)
-    private BigDecimal overnight;
-    @Column(nullable = false)
-    private LocalTime minimumStay;
-    @Column(nullable = false)
-    private LocalTime additionalStay;
-    private Integer startOvernight;
-    private Integer endOvernight;
-
-    public
-    CarFare() {
+    public CarFare() {
     }
 
-    public
-    CarFare(BigDecimal valueFare, BigDecimal additionalValue,BigDecimal overnight ,LocalTime minimumStay, LocalTime additionalStay, Integer startOvernight, Integer endOvernight) {
-        this.valueFare = valueFare;
-        this.additionalValue = additionalValue;
-        this.minimumStay = minimumStay;
-        this.additionalStay = additionalStay;
-        this.overnight = overnight;
-        this.startOvernight = startOvernight;
-        this.endOvernight = endOvernight;
+    public CarFare(BigDecimal valueFare, BigDecimal additionalValue, BigDecimal overnight,
+                   LocalTime minimumStay, LocalTime additionalStay, Integer startOvernight, Integer endOvernight) {
+        super(valueFare, additionalValue, overnight, minimumStay, additionalStay, startOvernight, endOvernight);
     }
-
-
 }
