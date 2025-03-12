@@ -5,28 +5,42 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalTime;
 
 @Setter
 @Getter
-@MappedSuperclass
-public abstract class Fare {
+@Entity
+@Table(name = "tb_car_fare")
+public class Fare {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private BigDecimal valueFare;
+    private BigDecimal valueCarFare;
 
     @Column(nullable = false)
-    private BigDecimal additionalValue;
+    private BigDecimal valueBikeFare;
 
     @Column(nullable = false)
-    private BigDecimal overnight;
+    private BigDecimal additionalCarValue;
+
+    @Column(nullable = false)
+    private BigDecimal additionalBikeValue;
+
+    @Column(nullable = false)
+    private BigDecimal overnightCar;
+
+    @Column(nullable = false)
+    private BigDecimal overnightBike;
 
     @Column(nullable = false)
     private LocalTime minimumStay;
+
+    @Column(nullable = false)
+    private Duration withdrawal;
 
     @Column(nullable = false)
     private LocalTime additionalStay;
@@ -37,13 +51,18 @@ public abstract class Fare {
     public Fare() {
     }
 
-    public Fare(BigDecimal valueFare, BigDecimal additionalValue,
-                BigDecimal overnight, LocalTime minimumStay, LocalTime additionalStay,
-                Integer startOvernight, Integer endOvernight) {
-        this.valueFare = valueFare;
-        this.additionalValue = additionalValue;
-        this.overnight = overnight;
+    public Fare(BigDecimal valueCarFare, BigDecimal valueBikeFare, BigDecimal additionalCarValue,
+                BigDecimal additionalBikeValue, BigDecimal overnightCar, BigDecimal overnightBike,
+                LocalTime minimumStay, Duration withdrawal,
+                LocalTime additionalStay, Integer startOvernight, Integer endOvernight) {
+        this.valueCarFare = valueCarFare;
+        this.valueBikeFare = valueBikeFare;
+        this.additionalCarValue = additionalCarValue;
+        this.additionalBikeValue = additionalBikeValue;
+        this.overnightCar = overnightCar;
+        this.overnightBike = overnightBike;
         this.minimumStay = minimumStay;
+        this.withdrawal = withdrawal;
         this.additionalStay = additionalStay;
         this.startOvernight = startOvernight;
         this.endOvernight = endOvernight;

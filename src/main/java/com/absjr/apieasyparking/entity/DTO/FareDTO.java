@@ -2,6 +2,7 @@ package com.absjr.apieasyparking.entity.DTO;
 
 import com.absjr.apieasyparking.entity.Fare;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
@@ -13,12 +14,16 @@ import java.time.LocalTime;
 @Getter
 @Setter
 public
-abstract class FareDTO {
+ class FareDTO {
 
     private Long id;
-    private BigDecimal valueFare;
-    private BigDecimal additionalValue;
-    private BigDecimal overnight;
+    private BigDecimal valueCarFare;
+    private BigDecimal valueBikeFare;
+    private BigDecimal additionalCarValue;
+    private BigDecimal additionalBikeValue;
+    private BigDecimal overnightCar;
+    private BigDecimal overnightBike;
+    private Duration withdrawal;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime minimumStay;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")

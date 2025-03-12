@@ -1,7 +1,5 @@
 package com.absjr.apieasyparking.controller;
 
-import com.absjr.apieasyparking.entity.DTO.BikeFareDTO;
-import com.absjr.apieasyparking.service.BikeFareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
