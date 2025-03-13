@@ -23,7 +23,7 @@ class FareService {
 
     public FareDTO createFare(FareDTO fareDTO){
         Fare fare = new Fare(
-                fareDTO.getId(),
+
                 fareDTO.getValueCarFare(),
                 fareDTO.getValueBikeFare(),
                 fareDTO.getAdditionalCarValue(),

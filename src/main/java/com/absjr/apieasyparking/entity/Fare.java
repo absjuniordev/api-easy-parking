@@ -40,7 +40,7 @@ public class Fare {
     @Column(nullable = false)
     private LocalTime minimumStay;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private LocalTime withdrawalTime;
 
     @Column(nullable = false)
@@ -49,12 +49,14 @@ public class Fare {
     private Integer startOvernight;
     private Integer endOvernight;
 
+    public Fare() {
+    }
 
-    public Fare(Long id, BigDecimal valueCarFare, BigDecimal valueBikeFare, BigDecimal additionalCarValue,
+    public Fare( BigDecimal valueCarFare, BigDecimal valueBikeFare, BigDecimal additionalCarValue,
                 BigDecimal additionalBikeValue, BigDecimal overnightCar, BigDecimal overnightBike,
                 LocalTime minimumStay, LocalTime withdrawalTime,
                 LocalTime additionalStay, Integer startOvernight, Integer endOvernight) {
-        this.id = getId();
+
         this.valueCarFare = valueCarFare;
         this.valueBikeFare = valueBikeFare;
         this.additionalCarValue = additionalCarValue;

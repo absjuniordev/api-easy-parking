@@ -4,6 +4,7 @@ import com.absjr.apieasyparking.entity.Fare;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -36,18 +37,7 @@ class FareDTO {
 
     public
     FareDTO(Fare entity) {
-        this.id = getId();
-        this.valueCarFare = entity.getValueCarFare();
-        this.valueBikeFare = entity.getValueBikeFare();
-        this.additionalCarValue = entity.getAdditionalCarValue();
-        this.additionalBikeValue = entity.getAdditionalBikeValue();
-        this.overnightCar = entity.getOvernightCar();
-        this.overnightBike = entity.getOvernightBike();
-        this.withdrawalTime = entity.getWithdrawalTime();
-        this.minimumStay = entity.getMinimumStay();
-        this.additionalStay = entity.getAdditionalStay();
-        this.startOvernight = entity.getStartOvernight();
-        this.endOvernight = entity.getEndOvernight();
+        BeanUtils.copyProperties(entity, this);
     }
 
     public
