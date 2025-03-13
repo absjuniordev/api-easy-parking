@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 @Getter
 public class LicensePlateDTO {
 
-
     private String plate;
     private String vehicleType;
     private List<TicketDTO> tickets;

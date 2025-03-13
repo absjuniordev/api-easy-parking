@@ -3,7 +3,6 @@ package com.absjr.apieasyparking.service;
 import com.absjr.apieasyparking.entity.DTO.TicketDTO;
 import com.absjr.apieasyparking.entity.LicensePlate;
 import com.absjr.apieasyparking.entity.Ticket;
-import com.absjr.apieasyparking.entity.enums.VehicleType;
 import com.absjr.apieasyparking.exeption.LicensePlateNotFoundException;
 import com.absjr.apieasyparking.exeption.PaymentBoxException;
 import com.absjr.apieasyparking.exeption.TicketNotFoundException;
@@ -33,10 +32,8 @@ class PaymentBoxService {
     LicensePlateRepository licensePlateRepository;
 
     @Autowired
-    private CarFareService carFareService;
-
-    @Autowired
-    private BikeFareService bikeFareService;
+    private
+    FareService fareService;
 
     @Transactional()
     public
@@ -55,9 +52,8 @@ class PaymentBoxService {
         LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
 
-        BigDecimal value = existingPlate.getVehicleType() == VehicleType.valueOf("CAR") ?
-                carFareService.calculateCarFare(duration,latestTicket.getEntryTime() ,departureTime ) :
-                bikeFareService.calculateBikeFare(duration,latestTicket.getEntryTime() ,departureTime);
+        BigDecimal value = fareService.calculateFare(duration, latestTicket.getEntryTime(),
+                departureTime, existingPlate.getVehicleType());
 
         latestTicket.setPaid(true);
         latestTicket.setDepartureTime(departureTime);

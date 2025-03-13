@@ -1,5 +1,7 @@
 package com.absjr.apieasyparking.controller;
 
+import com.absjr.apieasyparking.entity.DTO.FareDTO;
+import com.absjr.apieasyparking.service.FareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,18 +11,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/api/car-fare")
+@RequestMapping("/api/fare")
 public
-class CarFareController {
+class FareController {
 
     @Autowired
     private
-    CarFareService carFareService;
+    FareService fareService;
 
     @PostMapping
     public
-    ResponseEntity<CarFareDTO> createCarFare(@RequestBody CarFareDTO carFareDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(carFareService.createCarFare(carFareDTO));
-
+    ResponseEntity<FareDTO> createFare(@RequestBody FareDTO fareDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(fareService.createFare(fareDTO));
     }
 }

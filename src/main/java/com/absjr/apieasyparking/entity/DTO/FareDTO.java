@@ -2,10 +2,8 @@ package com.absjr.apieasyparking.entity.DTO;
 
 import com.absjr.apieasyparking.entity.Fare;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -14,7 +12,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 public
- class FareDTO {
+class FareDTO {
 
     private Long id;
     private BigDecimal valueCarFare;
@@ -23,7 +21,8 @@ public
     private BigDecimal additionalBikeValue;
     private BigDecimal overnightCar;
     private BigDecimal overnightBike;
-    private Duration withdrawal;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    private LocalTime withdrawalTime;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime minimumStay;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
@@ -37,7 +36,18 @@ public
 
     public
     FareDTO(Fare entity) {
-        BeanUtils.copyProperties(entity, this);
+        this.id = getId();
+        this.valueCarFare = entity.getValueCarFare();
+        this.valueBikeFare = entity.getValueBikeFare();
+        this.additionalCarValue = entity.getAdditionalCarValue();
+        this.additionalBikeValue = entity.getAdditionalBikeValue();
+        this.overnightCar = entity.getOvernightCar();
+        this.overnightBike = entity.getOvernightBike();
+        this.withdrawalTime = entity.getWithdrawalTime();
+        this.minimumStay = entity.getMinimumStay();
+        this.additionalStay = entity.getAdditionalStay();
+        this.startOvernight = entity.getStartOvernight();
+        this.endOvernight = entity.getEndOvernight();
     }
 
     public
@@ -45,11 +55,13 @@ public
         return Duration.ofMinutes(localTime.getHour() * 60 + localTime.getMinute());
     }
 
-    public Duration getMinimumStayDuration() {
+    public
+    Duration getMinimumStayDuration() {
         return toDuration(minimumStay);
     }
 
-    public Duration getAdditionalStayDuration() {
+    public
+    Duration getAdditionalStayDuration() {
         return toDuration(additionalStay);
     }
 }

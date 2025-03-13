@@ -13,9 +13,8 @@ import java.util.Objects;
 @Setter
 @Getter
 @Entity
-@Table(name = "tb_license_table")
+@Table(name = "tb_license_plate")
 public class LicensePlate {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

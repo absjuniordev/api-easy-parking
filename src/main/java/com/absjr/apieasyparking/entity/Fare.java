@@ -7,11 +7,12 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.Objects;
 
 @Setter
 @Getter
 @Entity
-@Table(name = "tb_car_fare")
+@Table(name = "tb_fare")
 public class Fare {
 
     @Id
@@ -39,8 +40,8 @@ public class Fare {
     @Column(nullable = false)
     private LocalTime minimumStay;
 
-    @Column(nullable = false)
-    private Duration withdrawal;
+    @Column(nullable = true)
+    private LocalTime withdrawalTime;
 
     @Column(nullable = false)
     private LocalTime additionalStay;
@@ -48,13 +49,12 @@ public class Fare {
     private Integer startOvernight;
     private Integer endOvernight;
 
-    public Fare() {
-    }
 
-    public Fare(BigDecimal valueCarFare, BigDecimal valueBikeFare, BigDecimal additionalCarValue,
+    public Fare(Long id, BigDecimal valueCarFare, BigDecimal valueBikeFare, BigDecimal additionalCarValue,
                 BigDecimal additionalBikeValue, BigDecimal overnightCar, BigDecimal overnightBike,
-                LocalTime minimumStay, Duration withdrawal,
+                LocalTime minimumStay, LocalTime withdrawalTime,
                 LocalTime additionalStay, Integer startOvernight, Integer endOvernight) {
+        this.id = getId();
         this.valueCarFare = valueCarFare;
         this.valueBikeFare = valueBikeFare;
         this.additionalCarValue = additionalCarValue;
@@ -62,9 +62,24 @@ public class Fare {
         this.overnightCar = overnightCar;
         this.overnightBike = overnightBike;
         this.minimumStay = minimumStay;
-        this.withdrawal = withdrawal;
+        this.withdrawalTime = withdrawalTime;
         this.additionalStay = additionalStay;
         this.startOvernight = startOvernight;
         this.endOvernight = endOvernight;
+    }
+
+    @Override
+    public
+    boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fare fare = (Fare) o;
+        return Objects.equals(id, fare.id) && Objects.equals(valueCarFare, fare.valueCarFare) && Objects.equals(valueBikeFare, fare.valueBikeFare) && Objects.equals(additionalCarValue, fare.additionalCarValue) && Objects.equals(additionalBikeValue, fare.additionalBikeValue) && Objects.equals(overnightCar, fare.overnightCar) && Objects.equals(overnightBike, fare.overnightBike) && Objects.equals(minimumStay, fare.minimumStay) && Objects.equals(withdrawalTime, fare.withdrawalTime) && Objects.equals(additionalStay, fare.additionalStay) && Objects.equals(startOvernight, fare.startOvernight) && Objects.equals(endOvernight, fare.endOvernight);
+    }
+
+    @Override
+    public
+    int hashCode() {
+        return Objects.hash(id, valueCarFare, valueBikeFare, additionalCarValue, additionalBikeValue, overnightCar, overnightBike, minimumStay, withdrawalTime, additionalStay, startOvernight, endOvernight);
     }
 }
