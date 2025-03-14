@@ -13,7 +13,7 @@ public class PaymentBoxController {
     @Autowired
     private PaymentBoxService paymentBoxService;
 
-    @GetMapping("/{plate}")
+    @PostMapping("/{plate}")
     public ResponseEntity<TicketDTO> payment(@PathVariable String plate) {
       TicketDTO paidTicket = paymentBoxService.payment(plate);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(paidTicket);
