@@ -1,7 +1,3 @@
-Aqui está a versão atualizada do README com as informações sobre as tarifas, pernoite e outras funcionalidades:
-
----
-
 # Easy Parking API
 
 ### 🚗 Gerenciamento de Estacionamento com API RESTful
@@ -35,21 +31,16 @@ Com a API **Easy Parking**, você poderá:
 Aqui estão os principais **endpoints** disponíveis na API:
 
 ### **License Plate Controller**
-- **GET** `/api/plate` – Lista todas as placas cadastradas.
-- **GET** `/api/plate/{plate}` – Obtém informações de uma placa específica.
-- **PUT** `/api/plate/update` – Atualiza uma placa.
-- **DELETE** `/api/plate/{plate}` – Remove uma placa do sistema.
-- **GET** `/api/plate/searchByDate` – Busca placas registradas dentro de um intervalo de datas.
+
+![Imagem](assets/img/license-plate.png)
 
 ### **Ticket Controller**
-- **GET** `/api/tickets` – Lista todos os tickets de estacionamento.
-- **POST** `/api/tickets` – Cria um novo ticket para um veículo.
-- **GET** `/api/tickets/{ticket}` – Obtém informações detalhadas de um ticket específico.
-- **GET** `/api/tickets/searchByDate` – Busca tickets registrados dentro de um intervalo de datas.
-- **GET** `/api/tickets/paid/{paid}` – Consulta tickets pagos ou não pagos.
 
-### **Payment Box Controller**
-- **GET** `/api/parking/{plate}` – Consulta os detalhes de pagamento de um veículo com base na placa.
+![Imagem](assets/img/ticket.png)
+
+### **Payment Box Controller and Create Fare**
+
+![Imagem](assets/img/paymant-and-fare.png)
 
 ---
 
