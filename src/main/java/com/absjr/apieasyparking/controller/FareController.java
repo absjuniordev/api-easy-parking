@@ -2,6 +2,7 @@ package com.absjr.apieasyparking.controller;
 
 import com.absjr.apieasyparking.entity.DTO.FareDTO;
 import com.absjr.apieasyparking.service.FareService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ class FareController {
     private
     FareService fareService;
 
+    @Operation(summary = "Create car and bike fares")
     @PostMapping
     public
     ResponseEntity<FareDTO> createFare(@RequestBody FareDTO fareDTO) {
