@@ -46,6 +46,11 @@ class FareDTO {
     }
 
     public
+    Duration getWithdrawalTimeDuration() {
+        return toDuration(withdrawalTime);
+    }
+
+    public
     Duration getMinimumStayDuration() {
         return toDuration(minimumStay);
     }

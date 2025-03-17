@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Optional;
 
 @Service
 public
@@ -50,7 +49,10 @@ class FareService {
         long additionalTime = duration.toMinutes() - fareDTO.getMinimumStayDuration().toMinutes();
         long totalOvernight = calculateOvernight(entryTime, departureTime, fareDTO);
 
-        if (vehicleType == VehicleType.CAR) {
+        if (duration.toMinutes() < fareDTO.getWithdrawalTimeDuration().toMinutes()){
+            return BigDecimal.valueOf(0.00);
+        }
+        else if (vehicleType == VehicleType.CAR) {
             return calculateFinalCarPrice(optionalFare, fareDTO, additionalTime, totalOvernight);
         }
         return calculateFinalBikePrice(optionalFare, fareDTO, additionalTime, totalOvernight);

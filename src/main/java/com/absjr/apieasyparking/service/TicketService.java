@@ -5,6 +5,7 @@ import com.absjr.apieasyparking.entity.LicensePlate;
 import com.absjr.apieasyparking.entity.PaymentBox;
 import com.absjr.apieasyparking.entity.Ticket;
 import com.absjr.apieasyparking.entity.TicketSequence;
+import com.absjr.apieasyparking.exeption.LicensePlateNotFoundException;
 import com.absjr.apieasyparking.exeption.TicketNotFoundException;
 import com.absjr.apieasyparking.repository.PaymentBoxRepository;
 import com.absjr.apieasyparking.repository.TicketRepository;
@@ -106,10 +107,22 @@ class TicketService {
 
         return resultSearch;
     }
+    @Transactional
+    public void deleteAllTickets(){
+        ticketRepository.deleteAll();
+    }
+
+    @Transactional
+    public void deleteByTicketCode(String ticketCode){
+
+        if (!ticketRepository.existsById(Long.valueOf(ticketCode))) {
+            throw new TicketNotFoundException("This Ticket Code [" + ticketCode + "] does not exist");
+        }
+        ticketRepository.deleteById(Long.valueOf(ticketCode));
+    }
 
 
-    //DELETE ALL
-    //DELETE BY TICKET CODE
+
 
     private String generateTicketCode() {
         String period = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
