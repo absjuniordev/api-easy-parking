@@ -15,13 +15,14 @@ public class User {
     private Integer id;
 
     private String name;
+    private String password;
 
     public
     User() {
     }
 
-    public
-    User(String name) {
+    public User(String name, String password) {
         this.name = name;
+        this.password = password;
     }
 }
