@@ -1,9 +1,6 @@
 package com.absjr.apieasyparking.controller.exception;
 
-import com.absjr.apieasyparking.exeption.FareNotFoundException;
-import com.absjr.apieasyparking.exeption.LicensePlateNotFoundException;
-import com.absjr.apieasyparking.exeption.PaymentBoxException;
-import com.absjr.apieasyparking.exeption.TicketNotFoundException;
+import com.absjr.apieasyparking.exeption.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -43,5 +40,20 @@ class GlobalExceptionHandler {
         String message = exception.getMessage();
         logger.error("Error: " , exception);
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> handleUserException(UserNotFoundException exception){
+        String message = exception.getMessage();
+        logger.error("Error: ",exception);
+        return new  ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<String> handleAlreadyExistsException(UserAlreadyExistsException exception){
+        String message = exception.getMessage();
+        logger.error("Error: ",exception);
+        return new  ResponseEntity<>(message, HttpStatus.CONFLICT);
     }
 }
