@@ -1,5 +1,6 @@
 package com.absjr.apieasyparking.entity;
 
+import com.absjr.apieasyparking.entity.enums.PaymentMethods;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,9 +22,12 @@ public class PaymentBox {
 
     private String operatorName;
 
+    @Enumerated(EnumType.STRING)
+    private PaymentMethods paymentMethods;
+
     @JsonIgnore
     @OneToMany(mappedBy = "paymentBox", cascade = CascadeType.ALL)
-    private List<Ticket> tickets = new ArrayList<>();;
+    private List<Ticket> tickets = new ArrayList<>();
 
     public PaymentBox() {
     }
@@ -32,6 +36,12 @@ public class PaymentBox {
         this.operatorName = operatorName;
         this.tickets = tickets;
     }
+
+//    public PaymentBox(String operatorName, List<Ticket> tickets, PaymentMethods paymentMethods) {
+//        this.operatorName = operatorName;
+//        this.tickets = tickets;
+//        this.paymentMethods = paymentMethods;
+//    }
 
     @Override
     public boolean equals(Object o) {

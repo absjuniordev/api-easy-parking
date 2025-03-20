@@ -29,7 +29,6 @@ public class Ticket {
     private LocalDateTime departureTime;
 
     private BigDecimal amountPaid;
-
     private Boolean paid ;
 
     @ManyToOne
