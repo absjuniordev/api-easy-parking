@@ -61,7 +61,8 @@ class PaymentBoxService {
     @Transactional()
     public
     TicketDTO payment(String plate) {
-        LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
+
+       LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
 
         if (existingPlate == null) throw new LicensePlateNotFoundException("Plate " + plate + " not found");
 
@@ -86,5 +87,26 @@ class PaymentBoxService {
         return new TicketDTO(latestTicket);
     }
 
+    public String timePermanence(String plate){
+        LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
 
+        if (existingPlate == null) throw new LicensePlateNotFoundException("Plate " + plate + " not found");
+
+        Ticket latestTicket = existingPlate.getTickets().stream()
+                .max(Comparator.comparing(Ticket::getEntryTime))
+                .orElse(null);
+
+        if (latestTicket == null) throw new TicketNotFoundException("Ticket not found");
+        if (latestTicket.getDepartureTime() != null) throw new PaymentBoxException("Payment ok");
+
+        LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+        Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
+
+        long hours = duration.toHours();
+        long minutes = duration.toMinutes() % 60;
+
+        return String.format("%02d:%02d", hours, minutes);
+
+    }
 }
+
