@@ -20,10 +20,13 @@ public class PaymentBox {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String operatorName;
+    private String name;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethods paymentMethods;
+
+    @OneToMany(mappedBy = "paymentBox")
+    private  List<User> user = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "paymentBox", cascade = CascadeType.ALL)
@@ -32,16 +35,10 @@ public class PaymentBox {
     public PaymentBox() {
     }
 
-    public PaymentBox(String operatorName, List<Ticket> tickets) {
-        this.operatorName = operatorName;
+    public PaymentBox(String name, List<Ticket> tickets) {
+        this.name = name;
         this.tickets = tickets;
     }
-
-//    public PaymentBox(String operatorName, List<Ticket> tickets, PaymentMethods paymentMethods) {
-//        this.operatorName = operatorName;
-//        this.tickets = tickets;
-//        this.paymentMethods = paymentMethods;
-//    }
 
     @Override
     public boolean equals(Object o) {

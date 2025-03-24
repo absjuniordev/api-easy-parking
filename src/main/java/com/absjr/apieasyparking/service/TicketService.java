@@ -40,19 +40,13 @@ class TicketService {
 
     @Transactional
     public
-    Ticket createTicket(String plate, String vehicleType, String operatorName) {
-        PaymentBox paymentBox = paymentBoxRepository.findByOperatorName(operatorName);
+    Ticket createTicket(String plate, String vehicleType) {
 
-        if (paymentBox == null) {
-            paymentBox = new PaymentBox(operatorName, new ArrayList<>());
-            paymentBox = paymentBoxRepository.save(paymentBox);
-        }
-
-        String idOperator = String.valueOf(paymentBox.getId());
-
+        PaymentBox paymentBox = paymentBoxRepository.findFirstByOrderByIdAsc();
         LicensePlate existingPlate = licensePlateService.getOrCreateLicensePlate(plate, vehicleType);
         String ticketCode = generateTicketCode();
-        Ticket ticket = new Ticket(ticketCode, LocalDateTime.now(), null, null, existingPlate, paymentBox, false);
+        Ticket ticket = new Ticket(ticketCode, LocalDateTime.now(),
+                null, null, existingPlate, paymentBox, false);
 
         ticket = ticketRepository.save(ticket);
         existingPlate.getTickets().add(ticket);

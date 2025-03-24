@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public
 interface PaymentBoxRepository extends JpaRepository<PaymentBox, Long> {
-    PaymentBox findByOperatorName(String operatorName);
+    PaymentBox findFirstByOrderByIdAsc();
 }

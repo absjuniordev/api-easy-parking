@@ -17,6 +17,10 @@ public class User {
     private String name;
     private String password;
 
+    @ManyToOne
+    @JoinColumn(name = "payment_box_id")
+    private PaymentBox paymentBox;
+
     public
     User() {
     }

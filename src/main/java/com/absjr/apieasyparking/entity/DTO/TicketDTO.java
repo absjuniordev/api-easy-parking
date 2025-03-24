@@ -19,7 +19,7 @@ class TicketDTO {
     private LocalDateTime entryTime;
     private LocalDateTime departureTime;
     private BigDecimal amountPaid;
-    private PaymentBox operatorName;
+    private PaymentBox paymentBox;
     private LicensePlate licensePlate;
     private Boolean paid;
 
@@ -31,7 +31,7 @@ class TicketDTO {
         this.departureTime = entity.getDepartureTime();
         this.amountPaid = entity.getAmountPaid();
         this.licensePlate = entity.getLicensePlate();
-        this.operatorName = entity.getPaymentBox();
+        this.paymentBox = entity.getPaymentBox();
         this.paid = entity.getPaid();
     }
 

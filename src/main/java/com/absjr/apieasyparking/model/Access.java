@@ -8,6 +8,4 @@ import lombok.Setter;
 public class Access {
     String plate;
     String vehicleType;
-    String operatorName;
-
 }
