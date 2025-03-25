@@ -40,7 +40,8 @@ class FareService {
     }
 
     public
-    BigDecimal calculateFare(Duration duration, LocalDateTime entryTime, LocalDateTime departureTime, VehicleType vehicleType) {
+    BigDecimal calculateFare(Duration duration, LocalDateTime entryTime,
+                             LocalDateTime departureTime, VehicleType vehicleType) {
 
         Fare optionalFare = fareRepository.findFirstFare()
                 .orElseThrow(()-> new FareNotFoundException("Fare not found"));
@@ -84,7 +85,8 @@ class FareService {
         } else {
 
             long extraStayHours = (additionalTime + 59) / 60;
-            BigDecimal totalAdditionalCharge = fareDTO.getAdditionalCarValue().multiply(BigDecimal.valueOf(extraStayHours));
+            BigDecimal totalAdditionalCharge = fareDTO.getAdditionalCarValue().
+                    multiply(BigDecimal.valueOf(extraStayHours));
 
             finalPrice = fareDTO.getValueCarFare().add(totalAdditionalCharge);
 
@@ -104,9 +106,10 @@ class FareService {
         } else {
 
             long extraStayHours = (additionalTime + 59) / 60;
-            BigDecimal totalAdditionalCharge = fareDTO.getAdditionalCarValue().multiply(BigDecimal.valueOf(extraStayHours));
+            BigDecimal totalAdditionalCharge = fareDTO.getAdditionalBikeValue()
+                    .multiply(BigDecimal.valueOf(extraStayHours));
 
-            finalPrice = fareDTO.getValueCarFare().add(totalAdditionalCharge);
+            finalPrice = fareDTO.getValueBikeFare().add(totalAdditionalCharge);
 
             if (totalOvernight > 0) {
                 finalPrice = finalPrice.add(fareDTO.getValueBikeFare().multiply(BigDecimal.valueOf(totalOvernight)));

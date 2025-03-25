@@ -48,21 +48,20 @@ class PaymentBoxService {
     private PaymentBoxRepository paymentBoxRepository;
 
     @Transactional
-    public PaymentBoxDTO createPaymentBox(String name){
+    public PaymentBoxDTO createPaymentBox(String name) {
         User existUser = userRepository.findFirstByOrderByIdAsc();
 
         PaymentBox paymentBox = new PaymentBox(name, new ArrayList<>());
         paymentBox.getUser().add(existUser);
 
         paymentBoxRepository.save(paymentBox);
-        return new PaymentBoxDTO(paymentBox) ;
+        return new PaymentBoxDTO(paymentBox);
     }
 
     @Transactional()
-    public
-    TicketDTO payment(String plate) {
+    public TicketDTO payment(String plate) {
 
-       LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
+        LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
 
         if (existingPlate == null) throw new LicensePlateNotFoundException("Plate " + plate + " not found");
 
@@ -87,7 +86,7 @@ class PaymentBoxService {
         return new TicketDTO(latestTicket);
     }
 
-    public String timePermanence(String plate){
+    public String timePermanence(String plate) {
         LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
 
         if (existingPlate == null) throw new LicensePlateNotFoundException("Plate " + plate + " not found");
@@ -111,5 +110,28 @@ class PaymentBoxService {
         return String.format("%02d:%02d  %nR$ %.2f", hours, minutes, value);
 
     }
+
+    //impl
+//    private TicketDTO consultPlate(String plate) {
+//        LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
+//
+//        if (existingPlate == null) throw new LicensePlateNotFoundException("Plate " + plate + " not found");
+//
+//        Ticket latestTicket = existingPlate.getTickets().stream()
+//                .max(Comparator.comparing(Ticket::getEntryTime))
+//                .orElse(null);
+//
+//        if (latestTicket == null) throw new TicketNotFoundException("Ticket not found");
+//        if (latestTicket.getDepartureTime() != null) throw new PaymentBoxException("Payment ok");
+//
+//        LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+//        Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
+//
+//        BigDecimal value = fareService.calculateFare(duration, latestTicket.getEntryTime(),
+//                departureTime, existingPlate.getVehicleType());
+//
+//        return new TicketDTO(latestTicket);
+//
+//    }
 }
 
