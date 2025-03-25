@@ -102,10 +102,13 @@ class PaymentBoxService {
         LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
 
+        BigDecimal value = fareService.calculateFare(duration, latestTicket.getEntryTime(),
+                departureTime, existingPlate.getVehicleType());
+
         long hours = duration.toHours();
         long minutes = duration.toMinutes() % 60;
 
-        return String.format("%02d:%02d", hours, minutes);
+        return String.format("%02d:%02d  %nR$ %.2f", hours, minutes, value);
 
     }
 }
