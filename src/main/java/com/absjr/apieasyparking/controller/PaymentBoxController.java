@@ -22,7 +22,7 @@ public class PaymentBoxController {
     @Operation(summary = "Create Payment Box")
     @PostMapping()
     public ResponseEntity<PaymentBoxDTO> createPaymentBox(String name) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(paymentBoxService.createPaymentBox(name));
+        return ResponseEntity.status(HttpStatus.CREATED).body(paymentBoxService.createPaymentBox(name));
     }
 
     @Operation(summary = "Make the payment by entering the vehicle license plate")

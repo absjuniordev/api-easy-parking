@@ -73,15 +73,14 @@ public class Fare {
     @Override
     public
     boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Fare fare = (Fare) o;
-        return Objects.equals(id, fare.id) && Objects.equals(valueCarFare, fare.valueCarFare) && Objects.equals(valueBikeFare, fare.valueBikeFare) && Objects.equals(additionalCarValue, fare.additionalCarValue) && Objects.equals(additionalBikeValue, fare.additionalBikeValue) && Objects.equals(overnightCar, fare.overnightCar) && Objects.equals(overnightBike, fare.overnightBike) && Objects.equals(minimumStay, fare.minimumStay) && Objects.equals(withdrawalTime, fare.withdrawalTime) && Objects.equals(additionalStay, fare.additionalStay) && Objects.equals(startOvernight, fare.startOvernight) && Objects.equals(endOvernight, fare.endOvernight);
+        return Objects.equals(id, fare.id);
     }
 
     @Override
     public
     int hashCode() {
-        return Objects.hash(id, valueCarFare, valueBikeFare, additionalCarValue, additionalBikeValue, overnightCar, overnightBike, minimumStay, withdrawalTime, additionalStay, startOvernight, endOvernight);
+        return Objects.hashCode(id);
     }
 }
