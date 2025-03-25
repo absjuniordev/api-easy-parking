@@ -60,23 +60,11 @@ class PaymentBoxService {
 
     @Transactional()
     public TicketDTO payment(String plate) {
-
-        LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
-
-        if (existingPlate == null) throw new LicensePlateNotFoundException("Plate " + plate + " not found");
-
-        Ticket latestTicket = existingPlate.getTickets().stream()
-                .max(Comparator.comparing(Ticket::getEntryTime))
-                .orElse(null);
-
-        if (latestTicket == null) throw new TicketNotFoundException("Ticket not found");
-        if (latestTicket.getDepartureTime() != null) throw new PaymentBoxException("Payment ok");
+        Ticket latestTicket = consultPlate(plate);
 
         LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
 
-        BigDecimal value = fareService.calculateFare(duration, latestTicket.getEntryTime(),
-                departureTime, existingPlate.getVehicleType());
+        BigDecimal value = calculateValue(latestTicket, departureTime);
 
         latestTicket.setPaid(true);
         latestTicket.setDepartureTime(departureTime);
@@ -87,6 +75,21 @@ class PaymentBoxService {
     }
 
     public String timePermanence(String plate) {
+        Ticket latestTicket = consultPlate(plate);
+
+        LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+        Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
+
+        BigDecimal value = calculateValue(latestTicket, departureTime);
+
+        long hours = duration.toHours();
+        long minutes = duration.toMinutes() % 60;
+
+        return String.format("%02d:%02d  %nR$ %.2f", hours, minutes, value);
+
+    }
+
+    private Ticket consultPlate(String plate) {
         LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
 
         if (existingPlate == null) throw new LicensePlateNotFoundException("Plate " + plate + " not found");
@@ -98,40 +101,14 @@ class PaymentBoxService {
         if (latestTicket == null) throw new TicketNotFoundException("Ticket not found");
         if (latestTicket.getDepartureTime() != null) throw new PaymentBoxException("Payment ok");
 
-        LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
-
-        BigDecimal value = fareService.calculateFare(duration, latestTicket.getEntryTime(),
-                departureTime, existingPlate.getVehicleType());
-
-        long hours = duration.toHours();
-        long minutes = duration.toMinutes() % 60;
-
-        return String.format("%02d:%02d  %nR$ %.2f", hours, minutes, value);
-
+        return latestTicket;
     }
 
-    //impl
-//    private TicketDTO consultPlate(String plate) {
-//        LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
-//
-//        if (existingPlate == null) throw new LicensePlateNotFoundException("Plate " + plate + " not found");
-//
-//        Ticket latestTicket = existingPlate.getTickets().stream()
-//                .max(Comparator.comparing(Ticket::getEntryTime))
-//                .orElse(null);
-//
-//        if (latestTicket == null) throw new TicketNotFoundException("Ticket not found");
-//        if (latestTicket.getDepartureTime() != null) throw new PaymentBoxException("Payment ok");
-//
-//        LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-//        Duration duration = Duration.between(latestTicket.getEntryTime(), departureTime);
-//
-//        BigDecimal value = fareService.calculateFare(duration, latestTicket.getEntryTime(),
-//                departureTime, existingPlate.getVehicleType());
-//
-//        return new TicketDTO(latestTicket);
-//
-//    }
+    private BigDecimal calculateValue(Ticket ticket, LocalDateTime departureTime) {
+        Duration duration = Duration.between(ticket.getEntryTime(), departureTime);
+        return fareService.calculateFare(duration, ticket.getEntryTime(),
+                departureTime, ticket.getLicensePlate().getVehicleType());
+    }
+
 }
 
