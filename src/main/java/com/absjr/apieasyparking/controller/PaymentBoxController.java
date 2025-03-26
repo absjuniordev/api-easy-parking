@@ -3,6 +3,7 @@ package com.absjr.apieasyparking.controller;
 import com.absjr.apieasyparking.entity.DTO.PaymentBoxDTO;
 import com.absjr.apieasyparking.entity.DTO.TicketDTO;
 import com.absjr.apieasyparking.entity.PaymentBox;
+import com.absjr.apieasyparking.entity.enums.PaymentMethods;
 import com.absjr.apieasyparking.service.PaymentBoxService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,9 @@ public class PaymentBoxController {
     }
 
     @Operation(summary = "Make the payment by entering the vehicle license plate")
-    @PostMapping("/payment/{plate}")
-    public ResponseEntity<TicketDTO> payment(@PathVariable String plate) {
-        TicketDTO paidTicket = paymentBoxService.payment(plate);
+    @PostMapping("/payment/{plate}/{paymentMethod}")
+    public ResponseEntity<TicketDTO> payment(@PathVariable String plate, @PathVariable PaymentMethods paymentMethod) {
+        TicketDTO paidTicket = paymentBoxService.payment(plate, paymentMethod);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(paidTicket);
     }
 

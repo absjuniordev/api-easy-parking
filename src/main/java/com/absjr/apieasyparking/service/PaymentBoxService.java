@@ -6,6 +6,7 @@ import com.absjr.apieasyparking.entity.LicensePlate;
 import com.absjr.apieasyparking.entity.PaymentBox;
 import com.absjr.apieasyparking.entity.Ticket;
 import com.absjr.apieasyparking.entity.User;
+import com.absjr.apieasyparking.entity.enums.PaymentMethods;
 import com.absjr.apieasyparking.exeption.LicensePlateNotFoundException;
 import com.absjr.apieasyparking.exeption.PaymentBoxException;
 import com.absjr.apieasyparking.exeption.TicketNotFoundException;
@@ -48,7 +49,8 @@ class PaymentBoxService {
     private PaymentBoxRepository paymentBoxRepository;
 
     @Transactional
-    public PaymentBoxDTO createPaymentBox(String name) {
+    public
+    PaymentBoxDTO createPaymentBox(String name) {
         User existUser = userRepository.findFirstByOrderByIdAsc();
 
         PaymentBox paymentBox = new PaymentBox(name, new ArrayList<>());
@@ -59,11 +61,15 @@ class PaymentBoxService {
     }
 
     @Transactional()
-    public TicketDTO payment(String plate) {
+    public
+    TicketDTO payment(String plate, PaymentMethods paymentMethods) {
         Ticket latestTicket = consultPlate(plate);
 
-        LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+        PaymentBox paymentBox = paymentBoxRepository.findFirstByOrderByIdAsc();
+        paymentBox.setPaymentMethods(paymentMethods);
+        paymentBoxRepository.save(paymentBox);
 
+        LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         BigDecimal value = calculateValue(latestTicket, departureTime);
 
         latestTicket.setPaid(true);
@@ -74,7 +80,8 @@ class PaymentBoxService {
         return new TicketDTO(latestTicket);
     }
 
-    public String timePermanence(String plate) {
+    public
+    String timePermanence(String plate) {
         Ticket latestTicket = consultPlate(plate);
 
         LocalDateTime departureTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
@@ -89,7 +96,8 @@ class PaymentBoxService {
 
     }
 
-    private Ticket consultPlate(String plate) {
+    private
+    Ticket consultPlate(String plate) {
         LicensePlate existingPlate = licensePlateRepository.findByPlate(plate);
 
         if (existingPlate == null) throw new LicensePlateNotFoundException("Plate " + plate + " not found");
@@ -104,7 +112,8 @@ class PaymentBoxService {
         return latestTicket;
     }
 
-    private BigDecimal calculateValue(Ticket ticket, LocalDateTime departureTime) {
+    private
+    BigDecimal calculateValue(Ticket ticket, LocalDateTime departureTime) {
         Duration duration = Duration.between(ticket.getEntryTime(), departureTime);
         return fareService.calculateFare(duration, ticket.getEntryTime(),
                 departureTime, ticket.getLicensePlate().getVehicleType());

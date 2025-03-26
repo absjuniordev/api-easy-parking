@@ -2,12 +2,10 @@ package com.absjr.apieasyparking.service;
 
 import com.absjr.apieasyparking.entity.DTO.LicensePlateDTO;
 import com.absjr.apieasyparking.entity.LicensePlate;
-import com.absjr.apieasyparking.entity.Ticket;
 import com.absjr.apieasyparking.entity.enums.VehicleType;
 import com.absjr.apieasyparking.exeption.LicensePlateNotFoundException;
 import com.absjr.apieasyparking.repository.LicensePlateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
