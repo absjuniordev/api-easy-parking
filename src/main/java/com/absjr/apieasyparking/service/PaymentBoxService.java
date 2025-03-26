@@ -48,19 +48,6 @@ class PaymentBoxService {
     @Autowired
     private PaymentBoxRepository paymentBoxRepository;
 
-//    @Transactional
-//    public
-//    PaymentBoxDTO createPaymentBox(String name) {
-//        User existUser = userRepository.findFirstByOrderByIdAsc();
-//
-//
-//        PaymentBox paymentBox = new PaymentBox(name, new ArrayList<>());
-//        paymentBox.getUser().add(existUser);
-//
-//        paymentBoxRepository.save(paymentBox);
-//        return new PaymentBoxDTO(paymentBox);
-//    }
-
     @Transactional
     public PaymentBoxDTO createPaymentBox(String name) {
         User existUser = userRepository.findFirstByOrderByIdAsc();
