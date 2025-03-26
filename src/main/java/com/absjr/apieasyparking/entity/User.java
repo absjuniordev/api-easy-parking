@@ -1,5 +1,6 @@
 package com.absjr.apieasyparking.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,9 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "payment_box_id")
+    @JsonBackReference
     private PaymentBox paymentBox;
+
 
     public
     User() {
