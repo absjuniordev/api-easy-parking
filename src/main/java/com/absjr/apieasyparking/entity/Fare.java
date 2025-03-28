@@ -83,4 +83,6 @@ public class Fare {
     int hashCode() {
         return Objects.hashCode(id);
     }
+
+
 }
