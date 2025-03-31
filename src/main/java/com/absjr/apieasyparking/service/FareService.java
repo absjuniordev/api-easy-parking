@@ -60,20 +60,23 @@ class FareService {
 
     }
 
-    private
-    long calculateOvernight(LocalDateTime entryTime, LocalDateTime departureTime, FareDTO fareDTO) {
+    private long calculateOvernight(LocalDateTime entryTime, LocalDateTime departureTime, FareDTO fareDTO) {
         long totalOvernight = 0;
 
         for (LocalDateTime day = entryTime.toLocalDate().atStartOfDay(); !day.isAfter(departureTime); day = day.plusDays(1)) {
             LocalDateTime startOvernight = day.with(LocalTime.of(fareDTO.getStartOvernight(), 0));
             LocalDateTime endOvernight = day.with(LocalTime.of(fareDTO.getEndOvernight(), 0));
 
-            if (departureTime.isAfter(startOvernight) && departureTime.isBefore(endOvernight)) {
+            if ((entryTime.isBefore(endOvernight) && entryTime.isAfter(startOvernight)) ||
+                    (departureTime.isBefore(endOvernight) && departureTime.isAfter(startOvernight)) ||
+                    (entryTime.isBefore(startOvernight) && departureTime.isAfter(endOvernight))) {
                 totalOvernight++;
             }
         }
+
         return totalOvernight;
     }
+
 
 
     private
