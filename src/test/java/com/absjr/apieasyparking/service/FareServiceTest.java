@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @Slf4j
-@ExtendWith(MockitoExtension.class)  // Usando o MockitoExtension para inicializar os mocks
+@ExtendWith(MockitoExtension.class)
 class FareServiceTest {
 
     @InjectMocks
@@ -32,45 +32,48 @@ class FareServiceTest {
     @Test
     void calculateFare() {
 
-        // Criando uma instância mockada de Fare com valores personalizados
-        Fare fare = new Fare();
-        fare.setValueCarFare(BigDecimal.valueOf(10)); // Valor base para carro
-        fare.setValueBikeFare(BigDecimal.valueOf(7)); // Valor base para moto
-        fare.setAdditionalCarValue(BigDecimal.valueOf(1)); // Valor adicional para carro
-        fare.setAdditionalBikeValue(BigDecimal.valueOf(1)); // Valor adicional para moto
-        fare.setOvernightCar(BigDecimal.valueOf(15)); // Valor noturno para carro
-        fare.setOvernightBike(BigDecimal.valueOf(10)); // Valor noturno para moto
-        fare.setMinimumStay(LocalTime.of(3, 0)); // Tempo mínimo de estadia
-        fare.setWithdrawalTime(LocalTime.of(0, 10)); // Tempo de retirada
-        fare.setAdditionalStay(LocalTime.of(1, 0)); // Tempo adicional de estadia
-        fare.setStartOvernight(1); // Início da tarifa noturna
-        fare.setEndOvernight(6); // Fim da tarifa noturna
 
-        // Mockando o comportamento do fareRepository para retornar o fare mockado
+        Fare fare = new Fare();
+        fare.setValueCarFare(BigDecimal.valueOf(10));
+        fare.setValueBikeFare(BigDecimal.valueOf(7));
+        fare.setAdditionalCarValue(BigDecimal.valueOf(1));
+        fare.setAdditionalBikeValue(BigDecimal.valueOf(1));
+        fare.setOvernightCar(BigDecimal.valueOf(15));
+        fare.setOvernightBike(BigDecimal.valueOf(10));
+        fare.setMinimumStay(LocalTime.of(3, 0));
+        fare.setWithdrawalTime(LocalTime.of(0, 10));
+        fare.setAdditionalStay(LocalTime.of(1, 0));
+        fare.setStartOvernight(0);
+        fare.setEndOvernight(6);
+
+        //  mock
         when(fareRepository.findFirstFare()).thenReturn(Optional.of(fare));
 
-        // Criando os parâmetros de teste
         LocalDateTime entryTime = LocalDateTime.parse("2025-03-28T08:00:00");
         LocalDateTime departureTime = LocalDateTime.parse("2025-03-30T08:00:00");
-        Duration duration = Duration.between(entryTime, departureTime); // Estadia
+        Duration duration = Duration.between(entryTime, departureTime);
         VehicleType vehicleType = VehicleType.CAR;
 
-        System.out.println(duration.toHours() + " hours");
-
-        // Chama o metodo de calculo de tarifa
         BigDecimal fareValue = fareService.calculateFare(duration, entryTime, departureTime, vehicleType);
 
-        // Verifica se o valor calculado é o esperado
-        BigDecimal expectedFare = BigDecimal.valueOf(10) // Valor base para carro
-                .add(BigDecimal.valueOf(45)) // Valor adicional para carro
-                .add(BigDecimal.valueOf(30)); // Valor noturno para carro (considerando que a estadia é durante a noite)
+        long timeWithoutMinimumStay = duration.toHours() >= 4 ? duration.toHours() - fare.getMinimumStay().getHour() : 0;
+        long currentFare = fare.getValueCarFare().longValue();
+        long totalOvernight = 30;
 
-        // Verifica se o valor retornado é igual ao esperado
+
+        BigDecimal expectedFare =
+                BigDecimal.valueOf(currentFare)
+                        .add(BigDecimal.valueOf(timeWithoutMinimumStay))
+                        .add(BigDecimal.valueOf(totalOvernight));
+
         assertNotNull(fareValue);
         assertEquals(expectedFare, fareValue);
+
+        System.out.println(duration.toHours() + " total hours");
+        System.out.println(timeWithoutMinimumStay + " hours stay");
         System.out.println("Value R$" + String.format("%.2f", fareValue));
         System.out.println("Expected Value R$" + String.format("%.2f", expectedFare));
 
-        
+
     }
 }

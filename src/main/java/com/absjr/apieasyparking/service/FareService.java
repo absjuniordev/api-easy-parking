@@ -67,9 +67,9 @@ class FareService {
             LocalDateTime startOvernight = day.with(LocalTime.of(fareDTO.getStartOvernight(), 0));
             LocalDateTime endOvernight = day.with(LocalTime.of(fareDTO.getEndOvernight(), 0));
 
-            if ((entryTime.isBefore(endOvernight) && entryTime.isAfter(startOvernight)) ||
-                    (departureTime.isBefore(endOvernight) && departureTime.isAfter(startOvernight)) ||
-                    (entryTime.isBefore(startOvernight) && departureTime.isAfter(endOvernight))) {
+            if ((entryTime.isBefore(endOvernight) && entryTime.isAfter(startOvernight)) || // entry < 00:00 - 06:00 < entry
+                    (departureTime.isBefore(endOvernight) && departureTime.isAfter(startOvernight)) ||// departure > 00:00 - 06:00 > departure
+                    (entryTime.isBefore(startOvernight) && departureTime.isAfter(endOvernight))) {// entry < 00:00 - 06:00 > departure
                 totalOvernight++;
             }
         }
@@ -115,7 +115,7 @@ class FareService {
             finalPrice = fareDTO.getValueBikeFare().add(totalAdditionalCharge);
 
             if (totalOvernight > 0) {
-                finalPrice = finalPrice.add(fareDTO.getValueBikeFare().multiply(BigDecimal.valueOf(totalOvernight)));
+                finalPrice = finalPrice.add(fareDTO.getOvernightBike().multiply(BigDecimal.valueOf(totalOvernight)));
             }
         }
         return finalPrice;
