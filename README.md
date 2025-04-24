@@ -1,166 +1,165 @@
-# Easy Parking API
+# 🅿️ Easy Parking API
 
-### 🚗 Gerenciamento de Estacionamento com API RESTful
+### 🚗 Sistema de Gerenciamento de Estacionamento via API RESTful
 
-**Easy Parking** é uma API desenvolvida para o gerenciamento de estacionamento. Com ela, é possível definir tarifas para carros e motos, configurar valores de pernoite (incluindo valor e horário), criar acessos para veículos e realizar cobranças de forma simples e eficiente.
+**Easy Parking** é uma poderosa API RESTful desenvolvida para o controle e automação de estacionamentos. Com ela, é possível configurar tarifas, registrar entradas e saídas de veículos, calcular permanência, aplicar valores de pernoite e realizar cobranças de forma automática e eficiente.
 
-### ⚙️ Tecnologias
+![Banner do Projeto](assets/img/banner.png)
 
-- **Spring Boot** – Framework Java para criar APIs robustas
-- **Java 17** – Linguagem de programação
-- **H2 Database** – Banco de dados embutido para testes
-- **PostgreSQL** – Banco de dados utilizado para produção
-- **Swagger (OAS 3.1)** – Documentação interativa da API
+---
+
+## ⚙️ Tecnologias Utilizadas
+
+- **Java 17**
+- **Spring Boot**
+- **H2 Database** – para testes e desenvolvimento local
+- **PostgreSQL** – para ambientes de produção
+- **Swagger (OpenAPI 3.1)** – documentação interativa da API
 
 ---
 
 ## 🚀 Funcionalidades
 
-Com a API **Easy Parking**, você poderá:
-
-- Definir **tarifas diferenciadas** para carros e motos.
-- Configurar **valores de pernoite** (incluindo horário e valor específico).
-- Criar e gerenciar **acessos para carros e motos**.
-- Realizar **cobranças automáticas** com base no tempo de permanência no estacionamento.
-- Consultar e manipular informações sobre os **tickets** de estacionamento e **placas de veículos**.
-
----
-
-## 📜 Endpoints
-
-Aqui estão os principais **endpoints** disponíveis na API:
-
-### **License Plate Controller**
-
-![Imagem](assets/img/license-plate.png)
-
-### **Ticket Controller**
-
-![Imagem](assets/img/ticket.png)
-
-### **Payment Box Controller and Create Fare**
-
-![Imagem](assets/img/paymant-and-fare.png)
+- Cadastro de usuários e operadores
+- Cadastro de caixas de pagamento
+- Criação e configuração de tarifas para carros e motos
+- Registro de entrada de veículos com geração automática de tickets
+- Cálculo automático de tempo de permanência e valores a pagar
+- Regras de cobrança para pernoite com horários e valores definidos
+- Consulta de tickets por placa
+- Registro de pagamento de tickets
+- Interface interativa com Swagger
 
 ---
 
-## 🛠 Como rodar o projeto
+## 🛠 Como Rodar o Projeto
 
 ### Pré-requisitos
 
-- **Java 17**
-- **PostgreSQL** (para ambiente de produção)
-- **H2 Database** (para testes)
+- Java 17 instalado
+- PostgreSQL (caso deseje usar banco de produção)
+- Maven ou Gradle instalado
 
-### Passos
+### Passo a passo
 
-1. Clone o repositório:
+1. **Clone o repositório**
    ```bash
    git clone https://github.com/absjuniordev/api-easy-parking.git
    ```
 
-2. Entre na pasta do projeto:
+2. **Acesse o diretório do projeto**
    ```bash
-   cd easy-parking-api
+   cd api-easy-parking
    ```
 
-3. Compile e inicie a aplicação com Maven ou Gradle:
+3. **Execute a aplicação**
    ```bash
-   mvn spring-boot:run
+   ./mvnw spring-boot:run
    ```
 
-4. A API estará disponível em `http://localhost:8081`.
+4. A API estará disponível em:  
+   📍 `http://localhost:8081`
 
 ---
 
-## 📝 Exemplo de Requisição
+## 🧪 Configuração Inicial (Passo a Passo)
 
-### Criando um Ticket
+### 1️⃣ Criar um usuário
+**POST** `/api/user`
+```json
+{
+  "name": "Fau",
+  "password": "1234"
+}
+```
+
+### 2️⃣ Criar o caixa de pagamento
+**POST** `/api/parking`
+```json
+{
+  "name": "CAIXA 01"
+}
+```
+
+### 3️⃣ Criar tarifa
+**POST** `/api/fare`
+```json
+{
+  "valueCarFare": 10,
+  "valueBikeFare": 7,
+  "additionalCarValue": 1,
+  "additionalBikeValue": 1,
+  "overnightCar": 25,
+  "overnightBike": 18,
+  "withdrawalTime": "00:10",
+  "minimumStay": "03:00",
+  "additionalStay": "01:00",
+  "overnight": 25,
+  "startOvernight": 0,
+  "endOvernight": 6
+}
+```
+
+### 4️⃣ Criar ticket de entrada de veículo
 **POST** `/api/tickets`
-
-**Request Body**:
 ```json
 {
-   "plate": "ABC-1234",
-   "vehicleType": "CAR",
-   "operatorName": "Julin"
+  "plate": "JRL-5B55",
+  "vehicleType": "BIKE"
 }
 ```
 
-**Response**:
-```json
-{
-   "id": 1,
-   "ticketCode": "202502289",
-   "entryTime": "2025-02-28T12:01:16",
-   "departureTime": null,
-   "amountPaid": null,
-   "operatorName": {
-      "id": 1,
-      "operatorName": "Julin"
-   },
-   "licensePlate": {
-      "plate": "ABC-1234",
-      "vehicleType": "CAR"
-   },
-   "paid": false
-}
-```
+---
 
-### Consultando Tickets
+## 📊 Exemplos de Uso
+
+### Buscar tickets por placa
 **GET** `/api/plate/{plate}`
 
-**Response**:
-```json
-{
-  "plate": "ABS-1234",
-  "vehicleType": "CAR",
-  "tickets": [
-     {
-        "id": 9,
-        "ticketCode": "202502289",
-        "entryTime": "2025-02-28T12:01:16",
-        "departureTime": null,
-        "amountPaid": null,
-        "operatorName": {
-           "id": 1,
-           "operatorName": "Julin"
-        },
-        "licensePlate": {
-           "plate": "ABC-1234",
-           "vehicleType": "CAR"
-        },
-        "paid": false
-     }
-  ]
-}
-```
+### Visualizar tempo de permanência, valores devidos e efetuar pagamento
+**POST** `/api/payments/{ticketId}`  
+(_Veja detalhes e estrutura de retorno no Swagger_)
 
 ---
 
-## 📚 Documentação Completa
+## 📚 Documentação Interativa
 
-A documentação da API está disponível no Swagger em:
+Acesse a documentação completa da API no Swagger:
 
-- **[Swagger UI](http://localhost:8081/swagger-ui.html)** – Interface interativa para testar os endpoints.
+👉 **[Swagger UI](http://localhost:8081/swagger-ui.html)**
+
+Você poderá testar todos os endpoints diretamente pelo navegador.
 
 ---
 
 ## 🧑‍💻 Contribuindo
 
-Se você deseja contribuir para o **Easy Parking**, siga os seguintes passos:
+Contribuições são bem-vindas!  
+Siga os passos abaixo:
 
-1. Faça um **fork** deste repositório.
-2. Crie uma branch para suas modificações (`git checkout -b feature/novas-funcionalidades`).
-3. Realize suas modificações e faça o commit (`git commit -am 'Adicionando novas funcionalidades'`).
-4. Envie para o seu repositório (`git push origin feature/novas-funcionalidades`).
-5. Abra um **pull request**.
+1. Faça um **fork** deste repositório
+2. Crie uma nova branch:
+   ```bash
+   git checkout -b feature/nova-funcionalidade
+   ```
+3. Commit suas alterações:
+   ```bash
+   git commit -m "Adiciona nova funcionalidade"
+   ```
+4. Push para o seu fork:
+   ```bash
+   git push origin feature/nova-funcionalidade
+   ```
+5. Abra um **Pull Request**
 
 ---
 
 ## 📧 Contato
 
-- Desenvolvido por: **Arnaldo Junior**
-- Email: abs.junnior@hotmail.com
-- WhatsApp: https://wa.me/5571993346500?text=
+- Desenvolvedor: **Arnaldo Junior**
+- Email: [abs.junnior@hotmail.com](mailto:abs.junnior@hotmail.com)
+- WhatsApp: [Clique aqui para conversar](https://wa.me/5571993346500?text=)
 
+---
+
+> Essa API foi desenvolvida com o propósito de facilitar o controle e operação de estacionamentos de forma moderna, simples e eficaz. 🚀
