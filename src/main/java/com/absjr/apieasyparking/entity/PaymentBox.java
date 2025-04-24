@@ -44,6 +44,7 @@ class PaymentBox {
     PaymentBox(String name, List<Ticket> tickets) {
         this.name = name;
         this.tickets = tickets;
+
     }
 
     @Override

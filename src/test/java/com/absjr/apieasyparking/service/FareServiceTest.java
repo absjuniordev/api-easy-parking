@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @Slf4j
@@ -59,8 +60,7 @@ class FareServiceTest {
         long timeWithoutMinimumStay = duration.toHours() >= 4 ? duration.toHours() - fare.getMinimumStay().getHour() : 0;
         long currentFare = fare.getValueCarFare().longValue();
         long totalOvernight = 30;
-
-
+ 
         BigDecimal expectedFare =
                 BigDecimal.valueOf(currentFare)
                         .add(BigDecimal.valueOf(timeWithoutMinimumStay))
